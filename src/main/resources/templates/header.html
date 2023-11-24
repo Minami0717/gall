@@ -1,0 +1,56 @@
+<head>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+  <script th:src="@{/js/header.js}"></script>
+</head>
+<div id=top>
+  <h1><a th:href="@{/}">minami.com</a></h1>
+  <div id=search>
+    <form action="search.jsp" autocomplete="off">
+      <input type=text placeholder="게시판 & 통합검색" name="word" value>
+      <input type=hidden value name=save>
+      <button><img th:src="@{/image/search2.png}"></button>
+    </form>
+    <div>
+      <div>
+        <h5>최근 검색어<button onclick=delCheck()>전체 삭제</button></h5>
+        <div id=empty>최근 검색어가 없습니다.</div>
+        <ul>
+          <li><a href=""></a>
+            <button onclick="location.href=''"><img th:src="@{/image/x1.png}"></button>
+        </ul>
+      </div>
+      <div id=save>
+        <button onclick=check()><b>검색어 저장</b>
+          <img th:src="@{/image/switch.png}">
+          <img th:src="@{/image/switch3.png}">
+        </button>
+        <img th:src="@{/image/close2.png}">
+      </div>
+    </div>
+  </div>
+</div>
+<nav>
+  <ul>
+    <li><a href=#>메인</a>
+    <li><a href=minor.jsp id=a_minor>마이너</a>
+    <li><a href=#>미니</a>
+    <li>|
+    <li><a href=#>블로그</a>
+    <li><a href=#>뉴스</a>
+    <li><a href=#>게임</a>
+    <li><a href=#>위키</a>
+    <li><a href=#>이벤트</a>
+    <li><a href=#>이모티콘</a>
+  </ul>
+</nav>
+<div id=visit>
+  최근 방문
+  <button><img th:src="@{/image/drop-down-arrow2.png}"></button>
+  <img th:src="@{/image/left.png}">
+  <ul>
+    <li><a href=""></a>
+      <img th:src="@{/image/x1.png}" onclick="location.href=''">
+      <img th:src="@{/image/x1.png}" onclick="location.href=''">
+  </ul>
+  <div class="right"><img th:src="@{/image/right-arrow.png}"><a href="#">전체</a></div>
+</div>

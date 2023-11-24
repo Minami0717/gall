@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/gallMain.css}" href="../static/css/gallMain.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script th:inline="javascript">
+		function changeListNum(listNum) {
+			location.href = '/board?id=' + [[${gallInfo.gallId}]] + '&list-num=' + listNum;
+		}
+	</script>
+</head>
+<body>
+	<header th:insert="header.html"></header>
+	<main>
+		<section>
+			<div id=header>
+				<h2><a th:href="@{lists(id = ${gallInfo.gallId})}" th:text="${gallInfo.nm}"></a></h2>
+			</div>
+			<div id=intro_box class=top_box>
+				<div><img th:src="${gallInfo.img}" onerror="this.src='image/no-pictures.png'"></div>
+				<div th:text="${gallInfo.intro}" class="width204"></div>
+				<div>
+					<div>
+						<strong>매니저</strong>
+						<span th:if="${gallInfo.manager == null}" class="absence">없음</span>
+						<span th:if="${gallInfo.manager != null}" th:text="${gallInfo.manager}"></span>
+					</div>
+					<div>
+						<strong>부매니저</strong>
+						<span th:if="${gallInfo.subManagers.size() == 0}" class="absence">없음</span>
+						<div th:if="${gallInfo.subManagers.size() != 0}" class="left">
+							<th:block th:each="sm : ${gallInfo.subManagers}">
+								<p th:text="${sm}"></p>
+							</th:block>
+						</div>
+					</div>
+					<div>
+						<strong>개설일</strong>
+						<span th:text="${gallInfo.createdAt}"></span>
+					</div>
+					<div><button id=report class=main_color>갤러리 관리 내역</button></div>
+				</div>
+			</div>
+<!--			<div id=issue_box class=top_box>-->
+<!--				<ul>-->
+<!--					<li>-->
+<!--						<a href=><%=list.get(n[i]).getTitle() %></a>-->
+<!--						<span class=right><%=list.get(n[i]).getWriter() %></span>-->
+<!--					</li>-->
+<!--				</ul>-->
+<!--				<div>-->
+<!--					<a href=><img th:src="@{/image/image12.jpg}" align=top></a>-->
+<!--					<div class=inline>-->
+<!--						<p><a href=><b><%=list.get(num).getTitle() %></b></a>-->
+<!--						<p><a href=><%=list.get(num).getContent() %></a>-->
+<!--						<p><b>작성자</b> : <%=list.get(num).getWriter() %>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+			<div id=mid>
+				<button th:onclick="|location.href='@{/board(id = ${gallInfo.gallId})}'|">전체글</button>
+				<button class=white th:onclick="|location.href='@{/board(id = ${gallInfo.gallId}, exception_mode = recommend)}'|">추천글</button>
+				<button class=white th:onclick="|location.href='@{/board(id = ${gallInfo.gallId}, exception_mode = notice)}'|">공지</button>
+
+<!--				<button class=white onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
+<!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
+<!--				<button class=white onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=notice'">공지</button>-->
+
+<!--				<button class=white onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
+<!--				<button class=white onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
+<!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=notice'">공지</button>-->
+				<div class=right>
+					<div class=right th:onclick="|location.href='@{/board/write(id = ${gallInfo.gallId})}'|">
+						<img th:src="@{/image/pencil.png}">글쓰기
+					</div>
+					<form style="display: inline">
+						<select class=right onchange=changeListNum(this.value)>
+							<option value="30">30개
+							<option value="50" selected>50개
+							<option value="100">100개
+						</select>
+					</form>
+				</div>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<th width=50px>번호
+						<th>제목
+						<th width=100px>글쓴이
+						<th width=80px>작성일
+						<th width=50px>조회
+						<th width=50px>추천
+					</tr>
+				</thead>
+				<tbody>
+				<tr th:each="post, i : ${postList}">
+<!--					<td th:text="${postList.size() - (((param.page - 1) * param.size) + i.index)}">-->
+					<td th:text="${post.postId}">
+					<td align=left>
+						<a th:href="@{/board/view(id = ${gallInfo.gallId}, no = ${post.postId})}" th:text="${post.title}">
+							<img th:src="@{/image/chat.png}">
+						</a>
+						<a href="" th:text="'['+${post.cmtNum}+']'"></a>
+					<td class="pointer">
+						<span th:text="${post.writer}">ㅇㅇ</span>
+						<span th:text="'(' + ${post.ip} + ')'" class="ip">(223.38)</span>
+<!--					<a href=#><img th:src="@{/image/fix_nik.gif}"></a>-->
+<!--					<a href=#><img th:src="@{/image/nik.gif}"></a>-->
+					<td th:text="${#temporals.format(post.createdAt, 'HH:mm')}">
+					<td th:text="${post.hits}">
+					<td th:text="${post.recoNum}">
+				</tbody>
+			</table>
+			<div id=bot>
+				<button onclick="location.href=''">전체글</button>
+				<button class="ns" onclick="location.href=''">추천글</button>
+
+<!--				<button class="ns" onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
+<!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
+
+<!--				<button class="ns" onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
+<!--				<button class="ns" onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
+
+				<button class=right th:onclick="|location.href='@{/board/write(id = ${gallInfo.gallId})}'|">글쓰기</button>
+			</div>
+			<div th:each="page : ${#numbers.sequence(1, totalPage)}" class="center">
+				<a th:if="${page != currentPage}"
+				   th:href="@{/board(id = ${gallInfo.gallId}, page = ${page}, list-num = ${totalPage})}"
+				   th:text="${page}"></a>
+				<strong th:if="${page == currentPage}" th:text="${page}" style="color: red"></strong>
+			</div>
+		</section>
+		<aside>
+			<div id=login>
+				<p><a href=>로그인해 주세요.</a>
+				<div>
+					<a href=#>MY갤로그</a> &nbsp;|&nbsp;
+					<a href=#>즐겨찾기</a> &nbsp;|&nbsp;
+					<a href=#><img th:src="@{/image/bell.png}"> 알림</a>
+				</div>
+<!--				<p><a href=#><b><%=session.getAttribute("nick") %></b>님<img th:src="@{/image/right-arrow3.png}"></a>-->
+<!--				<button onclick="location.href='logout.jsp?url=<%= request.getRequestURL()'">로그아웃</button>-->
+<!--				<div>-->
+<!--					<a href=#>MY갤로그</a> |-->
+<!--					<a href=#>즐겨찾기</a> |-->
+<!--					<a href=#>운영/가입</a> |-->
+<!--					<a href=#><img th:src="@{/image/bell.png}"> 알림</a>-->
+<!--				</div>-->
+			</div>
+		</aside>
+	</main>
+</body>
+</html>

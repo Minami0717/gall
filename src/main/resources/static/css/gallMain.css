@@ -1,0 +1,126 @@
+main {
+    margin: 20px auto 0;
+    width: 950px;
+}
+main:after {
+    clear: both;
+    display: block;
+    visibility: hidden;
+    content: "";
+}
+
+section {width: 660px; float: left;}
+aside {
+    float: right;
+    width: 270px;
+}
+h2 a {color: #3b4890}
+
+table {width: 100%; text-align: center; border-bottom: 1px solid #3b4890; border-spacing: 0; font-size: 13px;
+    border-collapse: collapse;}
+table img {height: 13px; margin-right: 10px;}
+
+th {border-bottom: 1px solid #3b4890; border-top: 2px solid #3b4890; height: 37px;}
+td {height: 25px; vertical-align: middle; border-top: 1px solid gainsboro;}
+td[align=left] a:last-of-type {color: #999;}
+
+#w {cursor: pointer;}
+
+#mid button {width: 82px; height: 32px; background: #3b4890; color: white; border: 1px solid #3b4890; margin: 15px 0 5px;
+    font-weight: bold; border-radius: 2px; cursor: pointer;}
+#mid button:hover {border-color: #3b4890;}
+#mid .white {background: white; color: black; border: 1px solid #ccc;}
+#mid .right div {border: 1px solid #3b4890; font-size: 13px; color: #3b4890; font-weight: bold; padding: 0 5px; cursor: pointer;}
+#mid img {width: 13px;}
+#mid > .right {margin-top: 27px;}
+#mid select {margin-right: 2px;}
+
+#bot button {width: 82px; height: 35px; background: #3b4890; color: white; border: 1px solid #3b4890; border-bottom-width: 3px;
+    margin-top: 10px; margin-bottom: 40px; font-weight: bold; border-radius: 2px; cursor: pointer;}
+#bot .ns {background: white; color: #3b4890;}
+#header {padding-bottom: 20px;}
+
+#issue_box ul {float: left; width: 300px;}
+#issue_box li,#issue_box p {margin-bottom: 5px;}
+#issue_box img {width: 150px; border: 1px solid #3b4890; margin: 0 10px;}
+
+#intro_box {
+    display: flex;
+    justify-content: start;
+}
+#intro_box > div {
+    margin-right: 20px;
+}
+#intro_box img {
+    width: 156px;
+}
+/*#intro_box p {margin-left: 12px; float: left;}*/
+/*#intro_box > div:first-child {*/
+/*    width: 56%;*/
+/*    float: left;*/
+/*}*/
+#intro_box > div:last-child > div {
+    line-height: 22px;
+}
+#intro_box:after {
+    clear: both;
+    display: block;
+    visibility: hidden;
+    content: "";
+}
+#intro_box strong {
+    width: 73px;
+    display: block;
+    float: left;
+}
+#intro_box strong:before {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 2px;
+    background: #333;
+    margin: 0 7px 0 1px;
+    vertical-align: 4px;
+}
+
+#login {border: 1px solid #3b4890; width: 270px;}
+#login img {height: 13px;}
+#login p {padding: 10px 20px;}
+#login p a {color: #3b4890; font-weight: bold; font-size: 14px;}
+#login p a:hover {text-decoration: none;}
+#login div {background: #f3f3f3; padding: 10px; text-align: center;}
+#login div a {font-size: 12px; font-weight: bold;}
+#login button {width: 65px; height: 25px; background: #3b4890; color: white; border: none; border: 1px solid #3b4890;
+    margin-left: 10px; cursor: pointer; font-weight: bold; float: right;}
+
+#report {
+    margin-top: 5px;
+    text-decoration: underline;
+    background: none;
+    border: none;
+}
+
+/*#no_img {*/
+/*    width: 156px;*/
+/*    height: 104px;*/
+/*    !*background: rgb(240, 240, 240);*!*/
+/*    position: relative;*/
+/*}*/
+/*#null {*/
+/*    position: absolute;*/
+/*    left: 30px;*/
+/*}*/
+
+.inline {display: inline-block;}
+.top_box {border-top: 2px solid #3b4890; border-bottom: 1px solid gainsboro; padding: 20px; font-size: 13px;}
+
+.absence {
+    color: #999;
+}
+.width204 {
+    width: 204px;
+}
+.ip {
+    color: #999;
+    font-size: 11px;
+}
