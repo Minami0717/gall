@@ -16,7 +16,7 @@
 	<main>
 		<section>
 			<div id=header>
-				<h2><a th:href="@{lists(id = ${gallInfo.gallId})}" th:text="${gallInfo.nm}"></a></h2>
+				<h2><a th:href="@{/board(id = ${gallInfo.gallId})}" th:text="${gallInfo.nm}"></a></h2>
 			</div>
 			<div id=intro_box class=top_box>
 				<div><img th:src="${gallInfo.img}" onerror="this.src='image/no-pictures.png'"></div>
@@ -103,7 +103,7 @@
 						<a th:href="@{/board/view(id = ${gallInfo.gallId}, no = ${post.postId})}" th:text="${post.title}">
 							<img th:src="@{/image/chat.png}">
 						</a>
-						<a href="" th:text="'['+${post.cmtNum}+']'"></a>
+						<a th:href="@{/board/view#reply(id = ${gallInfo.gallId}, no = ${post.postId})}" th:text="'['+${post.cmtNum}+']'"></a>
 					<td class="pointer">
 						<span th:text="${post.writer}">ㅇㅇ</span>
 						<span th:text="'(' + ${post.ip} + ')'" class="ip">(223.38)</span>

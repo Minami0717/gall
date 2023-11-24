@@ -22,7 +22,7 @@
 				<div>
 					<input type="hidden" name="gallId" th:value="${gallInfo.gallId}">
 					<input type=text placeholder=닉네임 name=writer required value="ㅇㅇ">
-					<input type=password placeholder=비밀번호 name=pw required value="1111">
+					<input type=password placeholder=비밀번호 name=pw required id="postPw">
 <!--					<input type=hidden value name=nick>-->
 <!--					<input type=hidden value name=pw>-->
 				</div>
@@ -35,4 +35,5 @@
 		</div>
 	</section>
 </body>
+<script th:src="@{/js/writePost.js}"></script>
 </html>

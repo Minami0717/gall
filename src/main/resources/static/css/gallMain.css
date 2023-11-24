@@ -26,8 +26,8 @@ td[align=left] a:last-of-type {color: #999;}
 
 #w {cursor: pointer;}
 
-#mid button {width: 82px; height: 32px; background: #3b4890; color: white; border: 1px solid #3b4890; margin: 15px 0 5px;
-    font-weight: bold; border-radius: 2px; cursor: pointer;}
+#mid button {width: 82px; height: 32px; background: #3b4890; color: white; border: 1px solid #29367c; margin: 15px 0 5px;
+    font-weight: bold; border-radius: 2px;}
 #mid button:hover {border-color: #3b4890;}
 #mid .white {background: white; color: black; border: 1px solid #ccc;}
 #mid .right div {border: 1px solid #3b4890; font-size: 13px; color: #3b4890; font-weight: bold; padding: 0 5px; cursor: pointer;}
@@ -35,8 +35,8 @@ td[align=left] a:last-of-type {color: #999;}
 #mid > .right {margin-top: 27px;}
 #mid select {margin-right: 2px;}
 
-#bot button {width: 82px; height: 35px; background: #3b4890; color: white; border: 1px solid #3b4890; border-bottom-width: 3px;
-    margin-top: 10px; margin-bottom: 40px; font-weight: bold; border-radius: 2px; cursor: pointer;}
+#bot button {width: 82px; height: 35px; background: #3b4890; color: white; border: 1px solid #29367c; border-bottom-width: 3px;
+    margin-top: 10px; margin-bottom: 40px; font-weight: bold; border-radius: 2px;}
 #bot .ns {background: white; color: #3b4890;}
 #header {padding-bottom: 20px;}
 

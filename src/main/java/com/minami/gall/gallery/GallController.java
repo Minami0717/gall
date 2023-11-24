@@ -21,7 +21,7 @@ public class GallController {
 
     @GetMapping
     public String getGallInfoAndPost(Model model, Long id, @PageableDefault(size = 50) Pageable pageable) {
-        PageVo vo = postService.getPostByGallId(id, pageable);
+        PageVo vo = postService.getPostsByGallId(id, pageable);
 
         model.addAttribute("gallInfo", service.getGallInfoById(id));
         model.addAttribute("postList", vo.getPosts());

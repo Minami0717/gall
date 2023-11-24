@@ -59,4 +59,8 @@ public class Post extends BaseEntity {
 
     @OneToMany(mappedBy = "postImgID.post")
     private List<PostImg> imgs;
+
+    public void upHits() {
+        hits++;
+    }
 }

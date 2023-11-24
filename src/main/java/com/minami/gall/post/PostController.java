@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -48,10 +47,10 @@ public class PostController {
 
     @GetMapping("/view")
     public String getPostView(Model model, Long id, Long no, @PageableDefault(size = 50) Pageable pageable) {
-        PageVo vo = service.getPostByGallId(id, pageable);
-
         model.addAttribute("gallInfo", gallService.getGallNameById(id));
         model.addAttribute("postDetail", service.getPostById(no));
+
+        PageVo vo = service.getPostsByGallId(id, pageable);
         model.addAttribute("postList", vo.getPosts());
         model.addAttribute("totalPage", vo.getTotalPage());
         model.addAttribute("currentPage", pageable.getPageNumber() + 1);
