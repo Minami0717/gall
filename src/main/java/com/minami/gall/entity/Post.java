@@ -4,6 +4,7 @@ import com.minami.gall.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -55,6 +56,7 @@ public class Post extends BaseEntity {
     private String pw;
 
     @OneToMany(mappedBy = "post")
+    @ToString.Exclude
     private List<Cmt> cmts;
 
     @OneToMany(mappedBy = "postImgID.post")

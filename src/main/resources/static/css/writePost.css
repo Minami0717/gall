@@ -1,7 +1,10 @@
 /* body {width: 60%;  margin-left: 20%;} */
 h2 a {color: #3b4890}
-section {margin: 0 25%;}
-#outside {border: 2px solid #d5d5d5; width: 820px; height: 600px; border-top-color: #3b4890;
+section {
+    margin: 0 auto;
+    width: 950px;
+}
+#outside {border: 2px solid #d5d5d5; width: 810px; height: 600px; border-top-color: #3b4890;
     padding: 33px 68px 5px;}
 
 input[name=writer],input[name=pw] {width: 200px; line-height: 35px; border: 1px solid #b2b4b2; padding: 0 10px;}

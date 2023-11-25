@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title th:text="${gallInfo.nm}">Insert title here</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/writePost.css}">
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script>
-		$(function () {
-			$("header").load("../header");
-		})
-	</script>
+	<script defer th:src="@{/js/writePost.js}"></script>
 </head>
 <body>
-	<header></header>
+	<header th:insert="~{header}"></header>
 	<section>
 		<div id=header>
 			<h2><a th:href="@{/board(id = ${gallInfo.gallId})}" th:text="${gallInfo.nm}"></a></h2>
@@ -35,5 +33,4 @@
 		</div>
 	</section>
 </body>
-<script th:src="@{/js/writePost.js}"></script>
 </html>

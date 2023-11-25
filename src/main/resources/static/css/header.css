@@ -59,4 +59,9 @@ nav a {color: white;}
 .pointer {
     cursor: pointer;
 }
-.main_color {color: #3b4890;}
+.main_color {
+    color: #3b4890;
+}
+.font-size14 {
+    font-size: 14px;
+}

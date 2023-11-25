@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title th:text="${gallInfo.nm}">Insert title here</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/gallMain.css}" href="../static/css/gallMain.css">
+	<link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script th:inline="javascript">
 		function changeListNum(listNum) {
@@ -12,7 +15,7 @@
 	</script>
 </head>
 <body>
-	<header th:insert="header.html"></header>
+	<header th:insert="~{header}"></header>
 	<main>
 		<section>
 			<div id=header>
