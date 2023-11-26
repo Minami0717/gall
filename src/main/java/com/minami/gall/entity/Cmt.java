@@ -35,6 +35,9 @@ public class Cmt {
     @Column(nullable = false, length = 50)
     private String writer;
 
+    @Column(nullable = false, columnDefinition = "char(7)")
+    private String ip;
+
     @Column(nullable = false, length = 100)
     private String pw;
 

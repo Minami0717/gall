@@ -112,7 +112,8 @@
 						<span th:text="'(' + ${post.ip} + ')'" class="ip">(223.38)</span>
 <!--					<a href=#><img th:src="@{/image/fix_nik.gif}"></a>-->
 <!--					<a href=#><img th:src="@{/image/nik.gif}"></a>-->
-					<td th:text="${#temporals.format(post.createdAt, 'HH:mm')}">
+					<td th:text="${#calendars.format(#calendars.createNow(), 'yyyyMMdd') == #temporals.format(post.createdAt, 'yyyyMMdd')} ?
+						${#temporals.format(post.createdAt, 'HH:mm')} : ${#temporals.format(post.createdAt, 'MM.dd')}">
 					<td th:text="${post.hits}">
 					<td th:text="${post.recoNum}">
 				</tbody>

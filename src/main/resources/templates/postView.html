@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title th:text="${postDetail.title} + ' - ' + ${gallInfo.nm}">Insert title here</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/postView.css}">
+    <link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="module" src="/js/common.js"></script>
+<!--    <script type="module" src="/js/common.js"></script>-->
     <script defer th:src="@{/js/postView.js}"></script>
 </head>
 <body>
@@ -29,7 +30,7 @@
                 <p class="right">
                     <span th:text="'조회 ' + ${postDetail.hits}"></span> |
                     <span th:text="'추천 ' + ${postDetail.recoNum}"></span> |
-                    <a href=#reply th:text="'댓글 ' + ${postDetail.cmts.size()}"></a>
+                    <a href=#reply th:text="'댓글 ' + ${postDetail.cmts.size()}" class="cmtNum"></a>
                 </p>
             </div>
             <div id="img_box" th:each="img : ${postDetail.imgs}">
@@ -54,7 +55,7 @@
         </div>
         <div id=reply>
             <div class="reTop" id=left>
-                전체 댓글 <span th:text="${postDetail.cmts.size()}"></span>개
+                전체 댓글 <span th:text="${postDetail.cmts.size()}" class="cmtNum"></span>개
                 <select>
                     <option>등록순
                     <option>최신순
@@ -69,16 +70,16 @@
             <div id=tiv th:if="${postDetail.cmts.size() > 0}">
                 <ul>
                     <li th:each="cmt : ${postDetail.cmts}">
-                        <span th:text="${cmt.writer}"></span>
+                        <span th:text="${cmt.writer} + '(' + ${cmt.ip} + ')'"></span>
                         <span th:text="${cmt.content}"></span>
                         <span th:text="${#temporals.format(cmt.createdAt, 'MM.dd HH:mm:ss')}"></span>
 <!--                        <button id=del><img th:src="@{/image/close.png}"></button>-->
                     </li>
                 </ul>
-                <div id=delCheck>
-                    <input id=pc type=password placeholder=비밀번호>
-                    <button id=check>확인</button><button id=x>X</button>
-                </div>
+<!--                <div id=delCheck>-->
+<!--                    <input id=pc type=password placeholder=비밀번호>-->
+<!--                    <button id=check>확인</button><button id=x>X</button>-->
+<!--                </div>-->
                 <div class="reBot right">
                     <a href=#header><b>본문 보기</b></a> &nbsp;|&nbsp;
                     <button><b>댓글닫기</b> <img th:src="@{/image/arrow-up.png}"></button> &nbsp;|&nbsp;
@@ -133,7 +134,8 @@
                         <span th:text="'(' + ${post.ip} + ')'" class="ip">(223.38)</span>
                         <!--					<a href=#><img th:src="@{/image/fix_nik.gif}"></a>-->
                         <!--					<a href=#><img th:src="@{/image/nik.gif}"></a>-->
-                    <td th:text="${#temporals.format(post.createdAt, 'HH:mm')}">
+                    <td th:text="${#calendars.format(#calendars.createNow(), 'yyyyMMdd') == #temporals.format(post.createdAt, 'yyyyMMdd')} ?
+					    ${#temporals.format(post.createdAt, 'HH:mm')} : ${#temporals.format(post.createdAt, 'MM.dd')}">
                     <td th:text="${post.hits}">
                     <td th:text="${post.recoNum}">
                 </tbody>

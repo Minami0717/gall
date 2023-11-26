@@ -8,4 +8,5 @@ public class CmtInsDto {
     private String content;
     private String writer;
     private String pw;
+    private String ip;
 }

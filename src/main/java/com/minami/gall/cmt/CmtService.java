@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -17,12 +18,19 @@ public class CmtService {
     private final CmtRepository rep;
 
     public int writeCmt(CmtInsDto dto) {
-        rep.save(Cmt.builder()
-                .post(Post.builder().postId(dto.getPostId()).build())
-                .content(dto.getContent())
-                .writer(dto.getWriter())
-                .pw(dto.getPw())
-                .createdAt(LocalDateTime.now()).build());
+        try {
+            rep.save(Cmt.builder()
+                    .post(Post.builder().postId(dto.getPostId()).build())
+                    .content(dto.getContent())
+                    .writer(dto.getWriter())
+                    .ip(dto.getIp())
+                    .pw(dto.getPw())
+                    .createdAt(LocalDateTime.now()).build());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
         return 1;
     }
 
@@ -32,7 +40,8 @@ public class CmtService {
                 .cmtId(c.getCmtId())
                 .content(c.getContent())
                 .writer(c.getWriter())
-                .createdAt(c.getCreatedAt())
+                .ip(c.getIp())
+                .createdAt(c.getCreatedAt().format(DateTimeFormatter.ofPattern("MM.dd HH:mm:ss")))
                 .build()).toList();
     }
 }
