@@ -4,10 +4,7 @@ import com.minami.gall.entity.Gall;
 import com.minami.gall.entity.Post;
 import com.minami.gall.entity.PostImg;
 import com.minami.gall.entity.PostImgID;
-import com.minami.gall.post.model.PageVo;
-import com.minami.gall.post.model.PostDetailVo;
-import com.minami.gall.post.model.PostInsDto;
-import com.minami.gall.post.model.PostVo;
+import com.minami.gall.post.model.*;
 import com.minami.gall.repository.PostImgRepository;
 import com.minami.gall.repository.PostRepository;
 import com.minami.gall.utils.FileUtils;
@@ -95,8 +92,8 @@ public class PostService {
     }
 
     @Transactional
-    public PostDetailVo getPostById(Long id) {
-        Post p = rep.findById(id).orElseThrow();
+    public PostDetailVo getPostDetail(Long id) {
+        Post p = getPostById(id);
         p.upHits();
 
         return PostDetailVo.builder()
@@ -113,5 +110,30 @@ public class PostService {
                         "%s/post/%d/%s", imgUrl, p.getPostId(), i.getPostImgID().getImg())).toList())
                 .cmts(p.getCmts())
                 .build();
+    }
+
+    public boolean pwCheck(PostPwCheckDto dto) {
+        Post p = getPostById(dto.getPostId());
+        return p.getPw().equals(dto.getPw());
+    }
+
+    public PostSimpleVo getPostSimple(Long id) {
+        Post p = getPostById(id);
+        return PostSimpleVo.builder()
+                .postId(p.getPostId())
+                .content(p.getContent())
+                .title(p.getTitle())
+                .writer(p.getWriter())
+                .pw(p.getPw())
+                .build();
+    }
+
+    private Post getPostById(Long id) {
+        return rep.findById(id).orElseThrow();
+    }
+
+    @Transactional
+    public void updPost(PostUpdDto dto) {
+        getPostById(dto.getPostId()).updPost(dto.getTitle(), dto.getContent());
     }
 }

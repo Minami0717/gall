@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title th:text="${gallInfo.nm}">Insert title here</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/pwCheck.css}" href="../static/css/pwCheck.css">
+  <link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script defer th:src="@{/js/pwCheck.js}"></script>
+</head>
+<body>
+  <header th:insert="~{header}"></header>
+  <section>
+    <div th:replace="~{fragments::gallName}"></div>
+    <div class="check-box">
+      <b>비밀번호를 입력하세요.</b>
+      <input type=password name=pw id="pw">
+      <input type="hidden" name="postId" id="postId" th:value="${postId}">
+      <input type="hidden" name="gallId" id="gallId" th:value="${gallInfo.gallId}">
+      <div>
+        <button type=button onclick=history.back()>취소</button>
+        <button id="confirm">확인</button>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

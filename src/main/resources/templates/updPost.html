@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title th:text="${gallInfo.nm}">Insert title here</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/writePost.css}">
+	<link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script defer th:src="@{/js/updPost.js}"></script>
+</head>
+<body>
+	<header th:insert="~{header}"></header>
+	<section>
+		<div th:replace="~{fragments::gallName}"></div>
+		<div id=outside>
+			<div>
+				<input type="hidden" id="gallId" th:value="${gallInfo.gallId}">
+				<input type="hidden" id="postId" th:value="${post.postId}">
+				<input type=text readonly id="writer" th:value="${post.writer}">
+				<input type=password readonly id="postPw" th:value="${post.pw}">
+				<!--					<input type=hidden value name=nick>-->
+				<!--					<input type=hidden value name=pw>-->
+			</div>
+			<div><input type=text id="title" th:value="${post.title}"></div>
+			<input type="file" id="imgList" multiple><br><br>
+			<textarea id="content" th:text="${post.content}" ></textarea><br>
+			<button id="submit">등록</button>
+			<button onclick="history.go(-2)">취소</button>
+		</div>
+	</section>
+</body>
+</html>

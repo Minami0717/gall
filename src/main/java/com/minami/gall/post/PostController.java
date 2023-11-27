@@ -3,6 +3,8 @@ package com.minami.gall.post;
 import com.minami.gall.gallery.GallService;
 import com.minami.gall.post.model.PageVo;
 import com.minami.gall.post.model.PostInsDto;
+import com.minami.gall.post.model.PostPwCheckDto;
+import com.minami.gall.post.model.PostUpdDto;
 import com.minami.gall.utils.IpUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.UnknownHostException;
@@ -25,35 +25,54 @@ public class PostController {
     private final PostService service;
     private final GallService gallService;
 
-    @GetMapping("/write")
-    public String writePostView(Model model, Long id) {
-        model.addAttribute("gallInfo", gallService.getGallNameById(id));
+    @GetMapping("/write/{gallId}")
+    public String writePost(Model model, @PathVariable Long gallId) {
+        model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
         return "writePost";
     }
 
     @PostMapping("/write")
-    public String writePost(List<MultipartFile> imgList, PostInsDto dto, Model model, HttpServletRequest request) throws UnknownHostException {
+    public String writePost(List<MultipartFile> imgList, PostInsDto dto, HttpServletRequest request) throws UnknownHostException {
         dto.setIp(IpUtils.getStartIp(request));
         service.writePost(imgList, dto);
-
-        String url = "/board?id=" + dto.getGallId();
-//        if (result == 0) {
-//            model.addAttribute("message", "글 작성 실패");
-//            model.addAttribute("url", url);
-//            return "message";
-//        }
-        return "redirect:" + url;
+        return "redirect:/board/" + dto.getGallId();
     }
 
-    @GetMapping("/view")
-    public String getPostView(Model model, Long id, Long no, @PageableDefault(size = 50) Pageable pageable) {
-        model.addAttribute("gallInfo", gallService.getGallNameById(id));
-        model.addAttribute("postDetail", service.getPostById(no));
+    @GetMapping("/{gallId}/{postId}")
+    public String getPostView(Model model, @PageableDefault(size = 50) Pageable pageable,
+                              @PathVariable Long gallId, @PathVariable Long postId) {
+        model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
+        model.addAttribute("postDetail", service.getPostDetail(postId));
 
-        PageVo vo = service.getPostsByGallId(id, pageable);
+        PageVo vo = service.getPostsByGallId(gallId, pageable);
         model.addAttribute("postList", vo.getPosts());
         model.addAttribute("totalPage", vo.getTotalPage());
         model.addAttribute("currentPage", pageable.getPageNumber() + 1);
         return "postView";
+    }
+
+    @GetMapping("/pwCheck/{gallId}/{postId}")
+    public String pwCheck(Model model, @PathVariable Long gallId, @PathVariable Long postId) {
+        model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
+        model.addAttribute("postId", postId);
+        return "pwCheck";
+    }
+
+    @ResponseBody
+    @PostMapping("/pwCheck")
+    public boolean pwCheck(@RequestBody PostPwCheckDto dto) {
+        return service.pwCheck(dto);
+    }
+
+    @GetMapping("/upd/{gallId}/{postId}")
+    public String updPost(Model model, @PathVariable Long postId, @PathVariable Long gallId) {
+        model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
+        model.addAttribute("post", service.getPostSimple(postId));
+        return "updPost";
+    }
+
+    @PatchMapping
+    public void updPost(@RequestBody PostUpdDto dto) {
+        service.updPost(dto);
     }
 }

@@ -65,4 +65,9 @@ public class Post extends BaseEntity {
     public void upHits() {
         hits++;
     }
+
+    public void updPost(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
