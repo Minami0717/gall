@@ -1,7 +1,7 @@
 package com.minami.gall.gallery;
 
 import com.minami.gall.post.PostService;
-import com.minami.gall.post.model.PageVo;
+import com.minami.gall.post.model.PageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ public class GallController {
     @GetMapping("{gallId}")
     public String getGallInfoAndPost(Model model, @PageableDefault(size = 50) Pageable pageable,
                                      @PathVariable Long gallId) {
-        PageVo vo = postService.getPostsByGallId(gallId, pageable);
+        PageDto vo = postService.getPostsByGallId(gallId, pageable);
 
         model.addAttribute("gallInfo", service.getGallInfoById(gallId));
         model.addAttribute("postList", vo.getPosts());

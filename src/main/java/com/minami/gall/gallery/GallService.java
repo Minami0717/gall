@@ -1,10 +1,10 @@
 package com.minami.gall.gallery;
 
-import com.minami.gall.entity.Gall;
-import com.minami.gall.entity.GallManager;
-import com.minami.gall.gallery.model.GallInfoVo;
-import com.minami.gall.gallery.model.GallNameVo;
-import com.minami.gall.repository.GallRepository;
+import com.minami.gall.common.entity.Gall;
+import com.minami.gall.common.entity.GallManager;
+import com.minami.gall.gallery.model.GallInfoDto;
+import com.minami.gall.gallery.model.GallNameDto;
+import com.minami.gall.common.repository.GallRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class GallService {
     @Value("${img-url}")
     private String imgUrl;
 
-    public GallInfoVo getGallInfoById(Long id) {
+    public GallInfoDto getGallInfoById(Long id) {
         Gall gall = rep.findById(id).orElseThrow();
         List<GallManager> managers = gall.getGallManagers();
         String mainManager = null;
@@ -38,7 +38,7 @@ public class GallService {
             }
         }
 
-        return GallInfoVo.builder()
+        return GallInfoDto.builder()
                 .gallId(gall.getGallId())
                 .nm(gall.getNm())
                 .img(String.format("%s/%s", imgUrl, gall.getImg()))
@@ -49,9 +49,9 @@ public class GallService {
                 .build();
     }
 
-    public GallNameVo getGallNameById(Long id) {
+    public GallNameDto getGallNameById(Long id) {
         Gall gall = rep.findById(id).orElseThrow();
-        return GallNameVo.builder()
+        return GallNameDto.builder()
                 .gallId(gall.getGallId())
                 .nm(gall.getNm())
                 .build();

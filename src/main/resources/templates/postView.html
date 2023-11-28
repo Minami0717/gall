@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title th:text="${postDetail.title} + ' - ' + ${gallInfo.nm}">Insert title here</title>
+    <title th:text="${postDetail.title} + ' - ' + ${gallInfo.nm} + ' 갤러리'">Insert title here</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/postView.css}">
     <link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -103,8 +103,10 @@
             <!--				<button class=ns onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
             <!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
             <button class=right th:onclick="|location.href='@{/board/write/{gallId}(gallId = ${gallInfo.gallId})}'|">글쓰기</button>
-            <button class=right id=delete th:onclick="|location.href='@{/board/pwCheck/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId})}'|">삭제</button>
-            <button class=right id=edit th:onclick="|location.href='@{/board/pwCheck/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId})}'|">수정</button>
+            <button class=right id=delete th:onclick="|location.href=
+                '@{/board/pwCheck/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId}, mode = del)}'|">삭제</button>
+            <button class=right id=edit th:onclick="|location.href=
+                '@{/board/pwCheck/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId}, mode = upd)}'|">수정</button>
         </div>
         <div id="bot">
             <table>

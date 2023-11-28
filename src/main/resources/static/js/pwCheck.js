@@ -1,10 +1,10 @@
-const confirm = document.getElementById('confirm');
+const confirmBtn = document.getElementById('confirm');
 const pw = document.getElementById('pw');
 const postId = document.getElementById('postId');
 const gallId = document.getElementById('gallId');
 
 pw.focus();
-confirm.addEventListener('click', () => {
+confirmBtn.addEventListener('click', () => {
     if (!inputCheck()) { return; }
 
     const pwData = {
@@ -13,11 +13,25 @@ confirm.addEventListener('click', () => {
     }
 
     pwCheck(pwData).then(res => {
-        console.log(res)
         if (res === false) {
-           alert('비밀번호가 맞지 않습니다. 다시 시도해 주세요.');
-           pw.focus();
-           return;
+            alert('비밀번호가 맞지 않습니다. 다시 시도해 주세요.');
+            pw.focus();
+            return;
+        }
+
+        const urlParams = new URL(location.href).searchParams;
+        const mode = urlParams.get('mode');
+        console.log(mode);
+
+        if (mode === 'del') {
+            if (confirm('게시글을 삭제하면 복구가 안됩니다. 삭제하시겠습니까?')) {
+                delPost().then(() => {
+                    alert('게시글이 삭제되었습니다.');
+                    location.href = '/board/' + gallId.value;
+                });
+                return;
+            }
+            return;
         }
 
         location.href = '/board/upd/' + gallId.value + '/' + postId.value;
@@ -27,9 +41,19 @@ confirm.addEventListener('click', () => {
 pw.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         e.preventDefault();
-        confirm.click();
+        confirmBtn.click();
     }
 });
+
+async function delPost() {
+    try {
+        await fetch("/board/" + postId.value, {
+            method: 'DELETE',
+        });
+    } catch (error) {
+        console.error("Error fetching data:", error);  // 오류 발생 시 메시지 출력
+    }
+}
 
 async function pwCheck(pwData) {
     try {

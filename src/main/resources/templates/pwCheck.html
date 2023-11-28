@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title th:text="${gallInfo.nm}">Insert title here</title>
+  <title th:text="${gallInfo.nm} + ' 갤러리'">Insert title here</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/pwCheck.css}" href="../static/css/pwCheck.css">
   <link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script defer th:src="@{/js/pwCheck.js}"></script>
+<!--  <script th:inline="javascript">-->
+<!--    const mode = [[${mode}]];-->
+<!--  </script>-->
 </head>
 <body>
   <header th:insert="~{header}"></header>

@@ -1,11 +1,11 @@
 package com.minami.gall.post;
 
 import com.minami.gall.gallery.GallService;
-import com.minami.gall.post.model.PageVo;
-import com.minami.gall.post.model.PostInsDto;
-import com.minami.gall.post.model.PostPwCheckDto;
-import com.minami.gall.post.model.PostUpdDto;
-import com.minami.gall.utils.IpUtils;
+import com.minami.gall.post.model.PageDto;
+import com.minami.gall.post.model.PostInsParam;
+import com.minami.gall.post.model.PostPwParam;
+import com.minami.gall.post.model.PostUpdParam;
+import com.minami.gall.common.utils.IpUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -32,10 +32,10 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public String writePost(List<MultipartFile> imgList, PostInsDto dto, HttpServletRequest request) throws UnknownHostException {
-        dto.setIp(IpUtils.getStartIp(request));
-        service.writePost(imgList, dto);
-        return "redirect:/board/" + dto.getGallId();
+    public String writePost(List<MultipartFile> imgList, PostInsParam p, HttpServletRequest request) throws UnknownHostException {
+        p.setIp(IpUtils.getStartIp(request));
+        service.writePost(imgList, p);
+        return "redirect:/board/" + p.getGallId();
     }
 
     @GetMapping("/{gallId}/{postId}")
@@ -44,7 +44,7 @@ public class PostController {
         model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
         model.addAttribute("postDetail", service.getPostDetail(postId));
 
-        PageVo vo = service.getPostsByGallId(gallId, pageable);
+        PageDto vo = service.getPostsByGallId(gallId, pageable);
         model.addAttribute("postList", vo.getPosts());
         model.addAttribute("totalPage", vo.getTotalPage());
         model.addAttribute("currentPage", pageable.getPageNumber() + 1);
@@ -60,8 +60,8 @@ public class PostController {
 
     @ResponseBody
     @PostMapping("/pwCheck")
-    public boolean pwCheck(@RequestBody PostPwCheckDto dto) {
-        return service.pwCheck(dto);
+    public boolean pwCheck(@RequestBody PostPwParam p) {
+        return service.pwCheck(p);
     }
 
     @GetMapping("/upd/{gallId}/{postId}")
@@ -72,7 +72,13 @@ public class PostController {
     }
 
     @PatchMapping
-    public void updPost(@RequestBody PostUpdDto dto) {
-        service.updPost(dto);
+    public void updPost(@RequestBody PostUpdParam p) {
+        service.updPost(p);
+    }
+
+    @ResponseBody
+    @DeleteMapping("{postId}")
+    public void delPost(@PathVariable Long postId) {
+        service.delPost(postId);
     }
 }

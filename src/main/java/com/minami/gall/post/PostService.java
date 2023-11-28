@@ -1,13 +1,14 @@
 package com.minami.gall.post;
 
-import com.minami.gall.entity.Gall;
-import com.minami.gall.entity.Post;
-import com.minami.gall.entity.PostImg;
-import com.minami.gall.entity.PostImgID;
+import com.minami.gall.common.entity.Gall;
+import com.minami.gall.common.entity.Post;
+import com.minami.gall.common.entity.PostImg;
+import com.minami.gall.common.entity.PostImgID;
+import com.minami.gall.common.enums.Deleted;
 import com.minami.gall.post.model.*;
-import com.minami.gall.repository.PostImgRepository;
-import com.minami.gall.repository.PostRepository;
-import com.minami.gall.utils.FileUtils;
+import com.minami.gall.common.repository.PostImgRepository;
+import com.minami.gall.common.repository.PostRepository;
+import com.minami.gall.common.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -33,10 +34,10 @@ public class PostService {
     @Value("${img-url}")
     private String imgUrl;
 
-    public PageVo getPostsByGallId(Long id, Pageable pageable) {
+    public PageDto getPostsByGallId(Long id, Pageable pageable) {
         Page<Post> posts = rep.findByGallOrderByPostIdDesc(Gall.builder().gallId(id).build(), pageable);
-        return PageVo.builder()
-                .posts(posts.map(p -> PostVo.builder()
+        return PageDto.builder()
+                .posts(posts.map(p -> PostDto.builder()
                         .postId(p.getPostId())
                         .title(p.getTitle())
                         .writer(p.getWriter())
@@ -50,14 +51,15 @@ public class PostService {
                 .build();
     }
 
-    public void writePost(List<MultipartFile> imgList, PostInsDto dto) {
+    public void writePost(List<MultipartFile> imgList, PostInsParam p) {
         Post post = rep.save(Post.builder()
-                .gall(Gall.builder().gallId(dto.getGallId()).build())
-                .title(dto.getTitle())
-                .content(dto.getContent())
-                .writer(dto.getWriter())
-                .ip(dto.getIp())
-                .pw(dto.getPw())
+                .gall(Gall.builder().gallId(p.getGallId()).build())
+                .title(p.getTitle())
+                .content(p.getContent())
+                .writer(p.getWriter())
+                .ip(p.getIp())
+                .pw(p.getPw())
+                .deleted(Deleted.FALSE)
                 .build());
 
         if (!imgList.get(0).getOriginalFilename().isEmpty()) {
@@ -92,11 +94,11 @@ public class PostService {
     }
 
     @Transactional
-    public PostDetailVo getPostDetail(Long id) {
+    public PostDetailDto getPostDetail(Long id) {
         Post p = getPostById(id);
         p.upHits();
 
-        return PostDetailVo.builder()
+        return PostDetailDto.builder()
                 .postId(p.getPostId())
                 .title(p.getTitle())
                 .content(p.getContent())
@@ -112,14 +114,14 @@ public class PostService {
                 .build();
     }
 
-    public boolean pwCheck(PostPwCheckDto dto) {
-        Post p = getPostById(dto.getPostId());
-        return p.getPw().equals(dto.getPw());
+    public boolean pwCheck(PostPwParam p) {
+        Post post = getPostById(p.getPostId());
+        return post.getPw().equals(p.getPw());
     }
 
-    public PostSimpleVo getPostSimple(Long id) {
+    public PostSimpleDto getPostSimple(Long id) {
         Post p = getPostById(id);
-        return PostSimpleVo.builder()
+        return PostSimpleDto.builder()
                 .postId(p.getPostId())
                 .content(p.getContent())
                 .title(p.getTitle())
@@ -133,7 +135,11 @@ public class PostService {
     }
 
     @Transactional
-    public void updPost(PostUpdDto dto) {
-        getPostById(dto.getPostId()).updPost(dto.getTitle(), dto.getContent());
+    public void updPost(PostUpdParam p) {
+        getPostById(p.getPostId()).updPost(p);
+    }
+
+    public void delPost(Long postId) {
+        rep.deleteById(postId);
     }
 }

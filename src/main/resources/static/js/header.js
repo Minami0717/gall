@@ -47,5 +47,12 @@ function delCheck() {
         location.href='delSearch.jsp?del=all'
 }
 
-if(document.location.href.indexOf("minor.jsp") != -1)
+if(document.location.href.indexOf("minor.jsp") != -1) {
     $("#a_minor").css("color", "#ffed44")
+}
+
+function darkmode() {
+    const body = document.querySelector('body');
+    body.style.backgroundColor = '#151515';
+    body.style.color = 'white';
+}
