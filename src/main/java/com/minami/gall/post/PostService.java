@@ -4,7 +4,7 @@ import com.minami.gall.common.entity.Gall;
 import com.minami.gall.common.entity.Post;
 import com.minami.gall.common.entity.PostImg;
 import com.minami.gall.common.entity.PostImgID;
-import com.minami.gall.common.enums.Deleted;
+import com.minami.gall.common.enums.TrueFalse;
 import com.minami.gall.common.redis.RedisService;
 import com.minami.gall.common.utils.TimeUtils;
 import com.minami.gall.post.model.*;
@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,10 @@ public class PostService {
     @Value("${file-dir}")
     private String fileDir;
 
-    public PageDto getPostsByGallId(Long id, Pageable pageable) {
+    public PageDto getPostsByGallId(Long id, Pageable pageable, String mode) {
+        if ("reco".equals(mode)) {
+
+        }
         Page<Post> posts = rep.findByGallOrderByPostIdDesc(Gall.builder().gallId(id).build(), pageable);
         return PageDto.builder()
                 .posts(posts.map(p -> PostDto.builder()
@@ -61,7 +62,8 @@ public class PostService {
                 .writer(p.getWriter())
                 .ip(p.getIp())
                 .pw(p.getPw())
-                .deleted(Deleted.FALSE)
+                .deleted(TrueFalse.FALSE)
+                .noticeYn(TrueFalse.FALSE)
                 .build());
 
         if (!imgList.get(0).getOriginalFilename().isEmpty()) {

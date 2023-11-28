@@ -62,8 +62,8 @@
 <!--			</div>-->
 			<div id=mid>
 				<button th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId})}'|">전체글</button>
-				<button class=white th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, exception_mode = recommend)}'|">추천글</button>
-				<button class=white th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, exception_mode = notice)}'|">공지</button>
+				<button class=white th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, mode = reco)}'|">추천글</button>
+				<button class=white th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, mode = notice)}'|">공지</button>
 
 <!--				<button class=white onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
 <!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
@@ -118,7 +118,7 @@
 			</table>
 			<div id=bot>
 				<button th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId})}'|">전체글</button>
-				<button class="ns" th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, exception_mode = recommend)}'|">추천글</button>
+				<button class="ns" th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, mode = reco)}'|">추천글</button>
 
 <!--				<button class="ns" onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
 <!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->

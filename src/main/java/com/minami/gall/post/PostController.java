@@ -38,11 +38,11 @@ public class PostController {
 
     @GetMapping("/{gallId}/{postId}")
     public String getPostView(Model model, @PageableDefault(size = 50) Pageable pageable,
-                              @PathVariable Long gallId, @PathVariable Long postId) {
+                              @PathVariable Long gallId, @PathVariable Long postId, String mode) {
         model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
         model.addAttribute("postDetail", service.getPostDetail(postId));
 
-        PageDto vo = service.getPostsByGallId(gallId, pageable);
+        PageDto vo = service.getPostsByGallId(gallId, pageable, mode);
         model.addAttribute("postList", vo.getPosts());
         model.addAttribute("totalPage", vo.getTotalPage());
         model.addAttribute("currentPage", pageable.getPageNumber() + 1);

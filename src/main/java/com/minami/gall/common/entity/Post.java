@@ -1,6 +1,6 @@
 package com.minami.gall.common.entity;
 
-import com.minami.gall.common.enums.Deleted;
+import com.minami.gall.common.enums.TrueFalse;
 import com.minami.gall.common.jpa.BaseEntity;
 import com.minami.gall.post.model.PostUpdParam;
 import jakarta.persistence.*;
@@ -63,7 +63,11 @@ public class Post extends BaseEntity {
 
     @Column(nullable = false)
     @ColumnDefault("0")
-    private Deleted deleted;
+    private TrueFalse deleted;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private TrueFalse noticeYn;
 
     @OneToMany(mappedBy = "post")
     @ToString.Exclude

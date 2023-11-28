@@ -1,6 +1,6 @@
 package com.minami.gall.common.entity;
 
-import com.minami.gall.common.enums.Deleted;
+import com.minami.gall.common.enums.TrueFalse;
 import com.minami.gall.common.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,5 +31,5 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     @ColumnDefault(value = "0")
-    private Deleted deleted;
+    private TrueFalse deleted;
 }

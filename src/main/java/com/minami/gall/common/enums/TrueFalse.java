@@ -1,5 +1,5 @@
 package com.minami.gall.common.enums;
 
-public enum Deleted {
+public enum TrueFalse {
     FALSE, TRUE
 }

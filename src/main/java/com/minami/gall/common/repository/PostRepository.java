@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findByGallOrderByPostIdDesc(Gall gall, Pageable pageable);
+    Page<Post> findByGallAndRecoNumOrderByPostIdDesc(Gall gall, int recoNum, Pageable pageable);
 }
