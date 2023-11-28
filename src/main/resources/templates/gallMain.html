@@ -20,7 +20,7 @@
 		<section>
 			<div th:replace="~{fragments::gallName}"></div>
 			<div id=intro_box class=top_box>
-				<div><img th:src="${gallInfo.img}" onerror="this.src='image/no-pictures.png'"></div>
+				<div><img th:src="'/image/' + ${gallInfo.img}" onerror="this.onerror=null; this.src='/image/no-pictures.png'" alt="갤러리 대표 이미지"></div>
 				<div th:text="${gallInfo.intro}" class="width204"></div>
 				<div>
 					<div>

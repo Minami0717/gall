@@ -17,9 +17,6 @@ import java.util.List;
 public class GallService {
     private final GallRepository rep;
 
-    @Value("${img-url}")
-    private String imgUrl;
-
     public GallInfoDto getGallInfoById(Long id) {
         Gall gall = rep.findById(id).orElseThrow();
         List<GallManager> managers = gall.getGallManagers();
@@ -41,7 +38,7 @@ public class GallService {
         return GallInfoDto.builder()
                 .gallId(gall.getGallId())
                 .nm(gall.getNm())
-                .img(String.format("%s/%s", imgUrl, gall.getImg()))
+                .img(gall.getImg())
                 .intro(gall.getIntro())
                 .manager(mainManager)
                 .subManagers(subManagers)

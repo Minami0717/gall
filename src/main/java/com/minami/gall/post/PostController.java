@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -81,7 +82,10 @@ public class PostController {
 
     @ResponseBody
     @PatchMapping("{postId}")
-    public PostRecoDto upRecoOrDeco(@PathVariable Long postId, String mode) {
-        return service.upRecoOrDeco(postId, mode);
+    public PostRecoDto upRecoOrDeco(@PathVariable Long postId, String mode, HttpServletRequest r) throws Exception {
+        String ip = r.getRemoteAddr();
+        if(ip.equals("0:0:0:0:0:0:0:1")) { ip = InetAddress.getLocalHost().getHostAddress(); }
+
+        return service.upRecoOrDeco(postId, mode, ip);
     }
 }

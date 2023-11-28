@@ -13,6 +13,11 @@ const submit = document.querySelector('.submit');
 cmtPw.value = generateRandomCode();
 recoBtn.addEventListener('click', () => {
     upRecoOrDeco('reco').then((res) => {
+        if (res.recoNum === -1) {
+            alert('추천은 1일 1회만 가능합니다.')
+            return;
+        }
+
         recoNum1.innerHTML = '추천 ' + res.recoNum;
         recoNum2.innerHTML = res.recoNum;
     })
@@ -20,6 +25,11 @@ recoBtn.addEventListener('click', () => {
 
 decoBtn.addEventListener('click', () => {
     upRecoOrDeco('deco').then((res) => {
+        if (res.recoNum === -1) {
+            alert('비추천은 1일 1회만 가능합니다.')
+            return;
+        }
+
         decoNum.innerHTML = res.decoNum;
     })
 })
@@ -55,7 +65,7 @@ async function upRecoOrDeco(mode) {
             method: 'PATCH'
         });
 
-        return res.json();
+        return await res.json();
     } catch (error) {
         console.error("Error fetching data:", error);  // 오류 발생 시 메시지 출력
     }

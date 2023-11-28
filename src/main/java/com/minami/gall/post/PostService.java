@@ -5,6 +5,8 @@ import com.minami.gall.common.entity.Post;
 import com.minami.gall.common.entity.PostImg;
 import com.minami.gall.common.entity.PostImgID;
 import com.minami.gall.common.enums.Deleted;
+import com.minami.gall.common.redis.RedisService;
+import com.minami.gall.common.utils.TimeUtils;
 import com.minami.gall.post.model.*;
 import com.minami.gall.common.repository.PostImgRepository;
 import com.minami.gall.common.repository.PostRepository;
@@ -19,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +31,10 @@ import java.util.List;
 public class PostService {
     private final PostRepository rep;
     private final PostImgRepository imgRep;
+    private final RedisService redis;
 
     @Value("${file-dir}")
     private String fileDir;
-
-    @Value("${img-url}")
-    private String imgUrl;
 
     public PageDto getPostsByGallId(Long id, Pageable pageable) {
         Page<Post> posts = rep.findByGallOrderByPostIdDesc(Gall.builder().gallId(id).build(), pageable);
@@ -109,7 +111,7 @@ public class PostService {
                 .recoNum(p.getRecoNum())
                 .decoNum(p.getDecoNum())
                 .imgs(p.getImgs().stream().map(i -> String.format(
-                        "%s/post/%d/%s", imgUrl, p.getPostId(), i.getPostImgID().getImg())).toList())
+                        "%d/%s", p.getPostId(), i.getPostImgID().getImg())).toList())
                 .cmts(p.getCmts())
                 .build();
     }
@@ -144,9 +146,14 @@ public class PostService {
     }
 
     @Transactional
-    public PostRecoDto upRecoOrDeco(Long postId, String mode) {
+    public PostRecoDto upRecoOrDeco(Long postId, String mode, String ip) {
+        String key = String.format("%d:%s:%s", postId, ip, mode.toUpperCase());
+        if (redis.getData(key) != null) { return PostRecoDto.builder().recoNum(-1).build(); }
+
         Post p = getPostById(postId);
         p.upRecoOrDeco(mode);
+
+        redis.setDataExpire(key, mode, TimeUtils.timeDiffCalc());
 
         return PostRecoDto.builder()
                 .recoNum(p.getRecoNum())
