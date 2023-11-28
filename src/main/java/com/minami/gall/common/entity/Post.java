@@ -75,7 +75,12 @@ public class Post extends BaseEntity {
     public void upHits() {
         hits++;
     }
-
+    public void upRecoOrDeco(String mode) {
+        switch (mode) {
+            case "reco" -> recoNum++;
+            case "deco" -> decoNum++;
+        }
+    }
     public void updPost(PostUpdParam p) {
         this.title = p.getTitle();
         this.content = p.getContent();

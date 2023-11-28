@@ -1,10 +1,7 @@
 package com.minami.gall.post;
 
 import com.minami.gall.gallery.GallService;
-import com.minami.gall.post.model.PageDto;
-import com.minami.gall.post.model.PostInsParam;
-import com.minami.gall.post.model.PostPwParam;
-import com.minami.gall.post.model.PostUpdParam;
+import com.minami.gall.post.model.*;
 import com.minami.gall.common.utils.IpUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -80,5 +77,11 @@ public class PostController {
     @DeleteMapping("{postId}")
     public void delPost(@PathVariable Long postId) {
         service.delPost(postId);
+    }
+
+    @ResponseBody
+    @PatchMapping("{postId}")
+    public PostRecoDto upRecoOrDeco(@PathVariable Long postId, String mode) {
+        return service.upRecoOrDeco(postId, mode);
     }
 }

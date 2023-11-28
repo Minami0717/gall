@@ -142,4 +142,15 @@ public class PostService {
     public void delPost(Long postId) {
         rep.deleteById(postId);
     }
+
+    @Transactional
+    public PostRecoDto upRecoOrDeco(Long postId, String mode) {
+        Post p = getPostById(postId);
+        p.upRecoOrDeco(mode);
+
+        return PostRecoDto.builder()
+                .recoNum(p.getRecoNum())
+                .decoNum(p.getDecoNum())
+                .build();
+    }
 }

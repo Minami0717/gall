@@ -27,7 +27,7 @@
                 </p>
                 <p class="right">
                     <span th:text="'조회 ' + ${postDetail.hits}"></span> |
-                    <span th:text="'추천 ' + ${postDetail.recoNum}"></span> |
+                    <span id="reco-num1" th:text="'추천 ' + ${postDetail.recoNum}"></span> |
                     <a href=#reply th:text="'댓글 ' + ${postDetail.cmts.size()}" class="cmtNum"></a>
                 </p>
             </div>
@@ -37,17 +37,17 @@
             <div id=con th:text="${postDetail.content}"></div>
             <div class="center">
                 <div id=rec>
-                    <span th:text="${postDetail.recoNum}"></span>
+                    <span id="reco-num2" th:text="${postDetail.recoNum}"></span>
                     <!--                <button onclick="location.href='reco.jsp?reco=re&idx=<%= idx %>&p_idx=<%=p_idx %>'">-->
                     <!--                    <img th:src="@{/image/star3.png}"><p>추천-->
                     <!--                </button>-->
-                    <button th:onclick="|location.href='@{/board/updReco(id = ${gallInfo.gallId}, no = ${postDetail.postId})}'|">
+                    <button id="reco-btn">
                         <img th:src="@{/image/star2.png}"><p>추천
                     </button>
-                    <button th:onclick="|location.href='@{/board/updDeco(id = ${gallInfo.gallId}, no = ${postDetail.postId})}'|">
+                    <button id="deco-btn">
                         <img th:src="@{/image/down-arrow.png}"><p>비추
                     </button>
-                    <span th:text="${postDetail.decoNum}"></span>
+                    <span id="deco-num" th:text="${postDetail.decoNum}"></span>
                 </div>
             </div>
         </div>

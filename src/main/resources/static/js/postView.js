@@ -1,19 +1,28 @@
 // import {generateRandomCode} from "common";
-function generateRandomCode() {
-    let str = ''
-    for (let i = 0; i < 4; i++) {
-        str += Math.floor(Math.random() * 10)
-    }
-    return str
-}
-
 const postId = document.getElementById('postId');
 const writer = document.getElementById('writer');
 const cmtPw = document.getElementById('cmtPw');
 const content = document.getElementById('content');
+const recoBtn = document.getElementById('reco-btn');
+const decoBtn = document.getElementById('deco-btn');
+const recoNum1 = document.getElementById('reco-num1');
+const recoNum2 = document.getElementById('reco-num2');
+const decoNum = document.getElementById('deco-num');
 const submit = document.querySelector('.submit');
 
 cmtPw.value = generateRandomCode();
+recoBtn.addEventListener('click', () => {
+    upRecoOrDeco('reco').then((res) => {
+        recoNum1.innerHTML = '추천 ' + res.recoNum;
+        recoNum2.innerHTML = res.recoNum;
+    })
+})
+
+decoBtn.addEventListener('click', () => {
+    upRecoOrDeco('deco').then((res) => {
+        decoNum.innerHTML = res.decoNum;
+    })
+})
 
 submit.addEventListener('click', () => {
     if (!inputCheck()) { return; }
@@ -39,6 +48,18 @@ content.addEventListener('keydown', (e) => {
         submit.click();
     }
 });
+
+async function upRecoOrDeco(mode) {
+    try {
+        const res = await fetch("/board/" + postId.value + '?mode=' + mode, {
+            method: 'PATCH'
+        });
+
+        return res.json();
+    } catch (error) {
+        console.error("Error fetching data:", error);  // 오류 발생 시 메시지 출력
+    }
+}
 
 function createCmtLi(cmtList) {
     let tiv = document.getElementById('tiv');
@@ -174,3 +195,11 @@ $(function() {
         }
     });
 });
+
+function generateRandomCode() {
+    let str = ''
+    for (let i = 0; i < 4; i++) {
+        str += Math.floor(Math.random() * 10)
+    }
+    return str
+}
