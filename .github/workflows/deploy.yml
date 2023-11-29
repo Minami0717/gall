@@ -1,0 +1,46 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: minami0717/gall
+          stage: main
+          yaml: |
+            name: gall
+            app: java@17
+            options:
+              ports: 8080
+              env:
+                - name: HOST
+                  value: svc.sel5.cloudtype.app
+                - name: PORT
+                  value: "32118"
+                - name: DATABASE_NAME
+                  value: gall
+                - name: USERNAME
+                  value: root
+                - name: PASSWORD
+                  value: green502
+                - name: SPRING_PROFILES_ACTIVE
+                  value: prod
+                - name: REDIS_PORT
+                  value: "32626"
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
