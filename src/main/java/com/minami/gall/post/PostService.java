@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,9 +81,12 @@ public class PostService {
             List<PostImg> imgs = new ArrayList<>();
             for (MultipartFile img : imgList) {
                 String savedFileName = FileUtils.makeRandomFileNm(img.getOriginalFilename());
-                File imgFile = new File(dir.getPath(), savedFileName);
+                //File imgFile = new File(dir.getPath(), savedFileName);
+                Path savePath = Paths.get(dir.getPath(), savedFileName);
+                log.info("savePath: {}", savePath);
+
                 try {
-                    img.transferTo(imgFile);
+                    img.transferTo(savePath);
                 } catch (IOException e) {
                     e.printStackTrace();
                     rep.delete(post);
