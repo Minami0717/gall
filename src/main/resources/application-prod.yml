@@ -3,3 +3,16 @@ spring:
     url: jdbc:mariadb://${HOST}:${PORT}/${DATABASE_NAME}
     username: ${USERNAME}
     password: ${PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    redis:
+      host: ${HOST}
+      port: ${REDIS_PORT}
+
+file-dir: /image/post

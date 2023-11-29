@@ -12,6 +12,7 @@ import com.minami.gall.common.repository.PostImgRepository;
 import com.minami.gall.common.repository.PostRepository;
 import com.minami.gall.common.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
     private final PostRepository rep;
     private final PostImgRepository imgRep;
@@ -35,9 +37,9 @@ public class PostService {
     private String fileDir;
 
     public PageDto getPostsByGallId(Long id, Pageable pageable, String mode) {
-        if ("reco".equals(mode)) {
-
-        }
+//        if ("reco".equals(mode)) {
+//
+//        }
         Page<Post> posts = rep.findByGallOrderByPostIdDesc(Gall.builder().gallId(id).build(), pageable);
         return PageDto.builder()
                 .posts(posts.map(p -> PostDto.builder()
@@ -70,6 +72,8 @@ public class PostService {
             File dir = new File(fileDir, String.valueOf(post.getPostId()));
             if (!dir.exists()) {
                 dir.mkdirs();
+                log.info("absolutePath: {}", dir.getAbsolutePath());
+                log.info("path: {}", dir.getPath());
             }
 
             List<PostImg> imgs = new ArrayList<>();
