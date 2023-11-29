@@ -17,4 +17,4 @@ spring:
 
 file-dir: home/img
 connect-path: img/**
-resource-path: file:///app/home/img
+resource-path: file:///app/home/img/
