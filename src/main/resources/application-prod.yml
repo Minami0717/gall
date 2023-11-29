@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://${HOST}:${PORT}/${DATABASE_NAME}
+    url: jdbc:mariadb://${HOST}:${PORT}/${DATABASE_NAME}?serverTimezone=Asia/Seoul
     username: ${USERNAME}
     password: ${PASSWORD}
   jpa:
