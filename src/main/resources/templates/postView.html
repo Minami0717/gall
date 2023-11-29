@@ -32,7 +32,7 @@
                 </p>
             </div>
             <div id="img_box" th:each="img : ${postDetail.imgs}">
-                <img th:src="@{'/image/post/' + ${img}}">
+                <img th:src="@{'/img/' + ${img}}">
             </div>
             <div id=con th:text="${postDetail.content}"></div>
             <div class="center">
