@@ -27,19 +27,19 @@ jobs:
               ports: 8080
               env:
                 - name: HOST
-                  value: svc.sel5.cloudtype.app
+                  secret: HOST
                 - name: PORT
-                  value: "32118"
+                  secret: PORT
                 - name: DATABASE_NAME
                   value: gall
                 - name: USERNAME
-                  value: root
+                  secret: USERNAME
                 - name: PASSWORD
-                  value: green502
+                  secret: PASSWORD
                 - name: SPRING_PROFILES_ACTIVE
                   value: prod
                 - name: REDIS_PORT
-                  value: "32626"
+                  secret: REDIS_PORT
             context:
               git:
                 url: git@github.com:${{ github.repository }}.git
