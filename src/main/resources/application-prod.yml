@@ -15,6 +15,6 @@ spring:
       host: ${HOST}
       port: ${REDIS_PORT}
 
-file-dir: /home
+file-dir: home/img
 connect-path: img/**
-resource-path: file:///home/
+resource-path: file:///home/img
