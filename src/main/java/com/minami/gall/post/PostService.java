@@ -82,7 +82,7 @@ public class PostService {
             for (MultipartFile img : imgList) {
                 String savedFileName = FileUtils.makeRandomFileNm(img.getOriginalFilename());
                 //File imgFile = new File(dir.getPath(), savedFileName);
-                Path savePath = Paths.get(dir.getPath(), savedFileName);
+                Path savePath = Paths.get(dir.getAbsolutePath(), savedFileName);
                 log.info("savePath: {}", savePath);
 
                 try {
