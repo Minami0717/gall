@@ -2,6 +2,7 @@ package com.minami.gall.gallery;
 
 import com.minami.gall.common.entity.Gall;
 import com.minami.gall.common.entity.GallManager;
+import com.minami.gall.common.enums.TrueFalse;
 import com.minami.gall.gallery.model.GallInfoDto;
 import com.minami.gall.gallery.model.GallNameDto;
 import com.minami.gall.common.repository.GallRepository;
@@ -27,7 +28,7 @@ public class GallService {
             String managerInfo = String.format(
                     "%s(%s)", m.getGallManagerID().getUser().getNick(), m.getGallManagerID().getUser().getUid());
 
-            if (m.getSubYn() == 0) {
+            if (m.getSubYn() == TrueFalse.FALSE) {
                 mainManager = managerInfo;
             }
             else {

@@ -26,8 +26,9 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String email;
 
-    @Column(nullable = false, columnDefinition = "tinyint")
-    private int fixedYn;
+    @Column(nullable = false)
+    @ColumnDefault(value = "0")
+    private TrueFalse fixedYn;
 
     @Column(nullable = false)
     @ColumnDefault(value = "0")
