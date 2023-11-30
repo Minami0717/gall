@@ -9,14 +9,10 @@ main {
     border-top: 2px solid #3b4890;
 }
 #img_box {
-    width: 70%;
-    height: auto;
-    overflow: hidden;
     margin-top: 30px;
 }
 #img_box img {
-    max-width: 100%;
-    height: auto;
+    max-width: 70%;
     display: block;
 }
 #head {

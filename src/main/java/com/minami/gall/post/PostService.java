@@ -35,9 +35,6 @@ public class PostService {
     private final PostImgRepository imgRep;
     private final RedisService redis;
 
-    @Value("${file-dir}")
-    private String fileDir;
-
     public PageDto getPostsByGallId(String id, Pageable pageable, String mode) {
 //        if ("reco".equals(mode)) {
 //
@@ -58,7 +55,7 @@ public class PostService {
                 .build();
     }
 
-    public void writePost(List<MultipartFile> imgList, PostInsParam p) {
+    public void writePost(PostInsParam p) {
         Post post = rep.save(Post.builder()
                 .gall(Gall.builder().gallId(p.getGallId()).build())
                 .title(p.getTitle())
@@ -70,39 +67,13 @@ public class PostService {
                 .noticeYn(TrueFalse.FALSE)
                 .build());
 
-        if (!imgList.get(0).getOriginalFilename().isEmpty()) {
-            File dir = new File(fileDir, String.valueOf(post.getPostId()));
-            if (!dir.exists()) {
-                dir.mkdirs();
-                log.info("absolutePath: {}", dir.getAbsolutePath());
-                log.info("path: {}", dir.getPath());
-            }
-
-            List<PostImg> imgs = new ArrayList<>();
-            for (MultipartFile img : imgList) {
-                String savedFileName = FileUtils.makeRandomFileNm(img.getOriginalFilename());
-                //File imgFile = new File(dir.getPath(), savedFileName);
-                Path savePath = Paths.get(dir.getAbsolutePath(), savedFileName);
-                log.info("savePath: {}", savePath);
-
-                try {
-                    img.transferTo(savePath);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    rep.delete(post);
-                    dir.delete();
-                    return;
-                }
-
-                imgs.add(PostImg.builder()
-                        .postImgID(PostImgID.builder()
-                                .post(post)
-                                .img(savedFileName)
-                                .build())
-                        .build());
-            }
-
-            imgRep.saveAll(imgs);
+        if (p.getImgUrls().size() != 0) {
+            imgRep.saveAll(p.getImgUrls().stream().map(img -> PostImg.builder()
+                    .postImgID(PostImgID.builder()
+                            .post(post)
+                            .img(img)
+                            .build())
+                    .build()).toList());
         }
     }
 
@@ -121,8 +92,7 @@ public class PostService {
                 .hits(p.getHits())
                 .recoNum(p.getRecoNum())
                 .decoNum(p.getDecoNum())
-                .imgs(p.getImgs().stream().map(i -> String.format(
-                        "%d/%s", p.getPostId(), i.getPostImgID().getImg())).toList())
+                .imgs(p.getImgs().stream().map(i -> i.getPostImgID().getImg()).toList())
                 .cmts(p.getCmts())
                 .build();
     }

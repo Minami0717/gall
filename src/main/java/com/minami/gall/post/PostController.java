@@ -29,11 +29,11 @@ public class PostController {
         return "writePost";
     }
 
+    @ResponseBody
     @PostMapping("/write")
-    public String writePost(List<MultipartFile> imgList, PostInsParam p, HttpServletRequest request) throws UnknownHostException {
+    public void writePost(@RequestBody PostInsParam p, HttpServletRequest request) throws UnknownHostException {
         p.setIp(IpUtils.getStartIp(request));
-        service.writePost(imgList, p);
-        return "redirect:/gallery/" + p.getGallId();
+        service.writePost(p);
     }
 
     @GetMapping("/{gallId}/{postId}")

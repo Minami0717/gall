@@ -15,19 +15,17 @@
 	<section>
 		<div th:replace="~{fragments::gallName}"></div>
 		<div id=outside>
-			<form action="/gallery/write" method=post enctype="multipart/form-data">
-				<div>
-					<input type="hidden" name="gallId" th:value="${gallInfo.gallId}">
-					<input type=text placeholder=닉네임 name=writer required id="writer" value="ㅇㅇ">
-					<input type=password placeholder=비밀번호 name=pw required id="postPw">
-<!--					<input type=hidden value name=nick>-->
-<!--					<input type=hidden value name=pw>-->
-				</div>
-				<div><input type=text placeholder="제목을 입력해 주세요." name=title id="title" required></div>
-				<input id="img" type="file" name="imgList" multiple><br><br>
-				<textarea name=content required></textarea><br>
-				<input type=submit id="submit" value=등록>
-			</form>
+			<div>
+				<input type="hidden" id="gall-id" th:value="${gallInfo.gallId}">
+				<input type=text placeholder=닉네임 id="writer" value="ㅇㅇ">
+				<input type=password placeholder=비밀번호 id="pw">
+				<!--					<input type=hidden value name=nick>-->
+				<!--					<input type=hidden value name=pw>-->
+			</div>
+			<div><input type=text placeholder="제목을 입력해 주세요." id="title"></div>
+			<input id="img" type="file" multiple>
+			<div id="content" contenteditable="true"></div>
+			<button id="submit-btn">등록</button>
 			<button onclick=history.back()>취소</button>
 		</div>
 	</section>
