@@ -40,6 +40,8 @@ jobs:
                   value: prod
                 - name: REDIS_PORT
                   secret: REDIS_PORT
+                - name: TZ
+                  value: Asia/Seoul
             context:
               git:
                 url: git@github.com:${{ github.repository }}.git
