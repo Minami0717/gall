@@ -18,7 +18,7 @@ import java.util.List;
 public class GallService {
     private final GallRepository rep;
 
-    public GallInfoDto getGallInfoById(Long id) {
+    public GallInfoDto getGallInfoById(String id) {
         Gall gall = rep.findById(id).orElseThrow();
         List<GallManager> managers = gall.getGallManagers();
         String mainManager = null;
@@ -47,7 +47,7 @@ public class GallService {
                 .build();
     }
 
-    public GallNameDto getGallNameById(Long id) {
+    public GallNameDto getGallNameById(String id) {
         Gall gall = rep.findById(id).orElseThrow();
         return GallNameDto.builder()
                 .gallId(gall.getGallId())

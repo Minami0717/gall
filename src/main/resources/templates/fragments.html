@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <th:block th:fragment="gallName">
   <div id=header>
-    <h2><a class="nanum-gothic text-color" th:href="@{/board/{id}(id = ${gallInfo.gallId})}" th:text="${gallInfo.nm} + ' 갤러리'"></a></h2>
+    <h2><a class="nanum-gothic text-color" th:href="@{/gallery/{gallId}(gallId = ${gallInfo.gallId})}" th:text="${gallInfo.nm} + ' 갤러리'"></a></h2>
   </div>
 </th:block>

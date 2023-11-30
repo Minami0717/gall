@@ -15,9 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Gall extends BaseEntity {
     @Id //pk
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
-    @Column(updatable = false, nullable = false, columnDefinition = "BIGINT UNSIGNED")
-    private Long gallId;
+    @Column(updatable = false, nullable = false, length = 20)
+    private String gallId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

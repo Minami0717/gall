@@ -38,7 +38,7 @@ public class PostService {
     @Value("${file-dir}")
     private String fileDir;
 
-    public PageDto getPostsByGallId(Long id, Pageable pageable, String mode) {
+    public PageDto getPostsByGallId(String id, Pageable pageable, String mode) {
 //        if ("reco".equals(mode)) {
 //
 //        }

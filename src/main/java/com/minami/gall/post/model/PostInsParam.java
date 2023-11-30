@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PostInsParam {
-    private Long gallId;
+    private String gallId;
     private String title;
     private String content;
     private String writer;

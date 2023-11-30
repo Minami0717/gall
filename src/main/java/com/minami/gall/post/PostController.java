@@ -17,14 +17,14 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping("gallery")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService service;
     private final GallService gallService;
 
-    @GetMapping("/write/{gallId}")
-    public String writePost(Model model, @PathVariable Long gallId) {
+    @GetMapping("/{gallId}/write")
+    public String writePost(Model model, @PathVariable String gallId) {
         model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
         return "writePost";
     }
@@ -33,12 +33,12 @@ public class PostController {
     public String writePost(List<MultipartFile> imgList, PostInsParam p, HttpServletRequest request) throws UnknownHostException {
         p.setIp(IpUtils.getStartIp(request));
         service.writePost(imgList, p);
-        return "redirect:/board/" + p.getGallId();
+        return "redirect:/gallery/" + p.getGallId();
     }
 
     @GetMapping("/{gallId}/{postId}")
     public String getPostView(Model model, @PageableDefault(size = 50) Pageable pageable,
-                              @PathVariable Long gallId, @PathVariable Long postId, String mode) {
+                              @PathVariable String gallId, @PathVariable Long postId, String mode) {
         model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
         model.addAttribute("postDetail", service.getPostDetail(postId));
 
@@ -49,21 +49,21 @@ public class PostController {
         return "postView";
     }
 
-    @GetMapping("/pwCheck/{gallId}/{postId}")
-    public String pwCheck(Model model, @PathVariable Long gallId, @PathVariable Long postId) {
+    @GetMapping("/{gallId}/pw/{postId}")
+    public String pwCheck(Model model, @PathVariable String gallId, @PathVariable Long postId) {
         model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
         model.addAttribute("postId", postId);
         return "pwCheck";
     }
 
     @ResponseBody
-    @PostMapping("/pwCheck")
+    @PostMapping("/pw")
     public boolean pwCheck(@RequestBody PostPwParam p) {
         return service.pwCheck(p);
     }
 
-    @GetMapping("/upd/{gallId}/{postId}")
-    public String updPost(Model model, @PathVariable Long postId, @PathVariable Long gallId) {
+    @GetMapping("/{gallId}/upd/{postId}")
+    public String updPost(Model model, @PathVariable Long postId, @PathVariable String gallId) {
         model.addAttribute("gallInfo", gallService.getGallNameById(gallId));
         model.addAttribute("post", service.getPostSimple(postId));
         return "updPost";

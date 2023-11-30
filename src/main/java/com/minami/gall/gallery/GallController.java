@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("board")
 @RequiredArgsConstructor
+@RequestMapping("gallery")
 @Slf4j
 public class GallController {
     private final GallService service;
@@ -22,7 +22,7 @@ public class GallController {
 
     @GetMapping("{gallId}")
     public String getGallInfoAndPost(Model model, @PageableDefault(size = 50) Pageable pageable,
-                                     @PathVariable Long gallId, String mode) {
+                                     @PathVariable String gallId, String mode) {
         PageDto vo = postService.getPostsByGallId(gallId, pageable, mode);
 
         model.addAttribute("gallInfo", service.getGallInfoById(gallId));

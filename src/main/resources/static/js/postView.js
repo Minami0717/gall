@@ -61,7 +61,7 @@ content.addEventListener('keydown', (e) => {
 
 async function upRecoOrDeco(mode) {
     try {
-        const res = await fetch("/board/" + postId.value + '?mode=' + mode, {
+        const res = await fetch("/gallery/" + postId.value + '?mode=' + mode, {
             method: 'PATCH'
         });
 

@@ -13,12 +13,12 @@ submit.addEventListener('click', () => {
         content: content.value.trim()
     }
 
-    updPost(postData).then(() => location.href = '/board/' + gallId.value);
+    updPost(postData).then(() => location.href = '/gallery/' + gallId.value);
 });
 
 async function updPost(postData) {
     try {
-        await fetch("/board", {
+        await fetch("/gallery", {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

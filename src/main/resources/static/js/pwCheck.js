@@ -27,14 +27,14 @@ confirmBtn.addEventListener('click', () => {
             if (confirm('게시글을 삭제하면 복구가 안됩니다. 삭제하시겠습니까?')) {
                 delPost().then(() => {
                     alert('게시글이 삭제되었습니다.');
-                    location.href = '/board/' + gallId.value;
+                    location.href = '/gallery/' + gallId.value;
                 });
                 return;
             }
             return;
         }
 
-        location.href = '/board/upd/' + gallId.value + '/' + postId.value;
+        location.href = '/gallery/' + gallId.value + '/upd/' + postId.value;
     });
 });
 
@@ -47,7 +47,7 @@ pw.addEventListener('keydown', (e) => {
 
 async function delPost() {
     try {
-        await fetch("/board/" + postId.value, {
+        await fetch("/gallery/" + postId.value, {
             method: 'DELETE',
         });
     } catch (error) {
@@ -57,7 +57,7 @@ async function delPost() {
 
 async function pwCheck(pwData) {
     try {
-        const res = await fetch("/board/pwCheck", {
+        const res = await fetch("/gallery/pw", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

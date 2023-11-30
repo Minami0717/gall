@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @Getter
 public class GallInfoDto {
-    private Long gallId;
+    private String gallId;
     private String nm;
     private String img;
     private String intro;

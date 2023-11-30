@@ -6,6 +6,6 @@ import lombok.Getter;
 @Builder
 @Getter
 public class GallNameDto {
-    private Long gallId;
+    private String gallId;
     private String nm;
 }

@@ -98,15 +98,15 @@
             </div>
         </div>
         <div>
-            <button th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId})}'|">전체글</button>
-            <button class=ns th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, exception_mode = recommend)}'|">추천글</button>
+            <button th:onclick="|location.href='@{/gallery/{gallId}(gallId = ${gallInfo.gallId})}'|">전체글</button>
+            <button class=ns th:onclick="|location.href='@{/gallery/{gallId}(gallId = ${gallInfo.gallId}, exception_mode = recommend)}'|">추천글</button>
             <!--				<button class=ns onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
             <!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
-            <button class=right th:onclick="|location.href='@{/board/write/{gallId}(gallId = ${gallInfo.gallId})}'|">글쓰기</button>
+            <button class=right th:onclick="|location.href='@{/gallery/{gallId}/write(gallId = ${gallInfo.gallId})}'|">글쓰기</button>
             <button class=right id=delete th:onclick="|location.href=
-                '@{/board/pwCheck/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId}, mode = del)}'|">삭제</button>
+                '@{/gallery/{gallId}/pw/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId}, mode = del)}'|">삭제</button>
             <button class=right id=edit th:onclick="|location.href=
-                '@{/board/pwCheck/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId}, mode = upd)}'|">수정</button>
+                '@{/gallery/{gallId}/pw/{postId}(gallId = ${gallInfo.gallId}, postId = ${postDetail.postId}, mode = upd)}'|">수정</button>
         </div>
         <div id="bot">
             <table>
@@ -125,10 +125,10 @@
                     <!--					<td th:text="${postList.size() - (((param.page - 1) * param.size) + i.index)}">-->
                     <td th:text="${post.postId}">
                     <td align=left>
-                        <a th:href="@{/board/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${post.postId})}" th:text="${post.title}">
+                        <a th:href="@{/gallery/{gallId}/{postId}(gallId = ${gallInfo.gallId}, postId = ${post.postId})}" th:text="${post.title}">
                             <img th:src="@{/image/chat.png}">
                         </a>
-                        <a th:href="@{/board/view#reply(id = ${gallInfo.gallId}, no = ${post.postId})}" th:text="'['+${post.cmtNum}+']'"></a>
+                        <a th:href="@{/gallery/{gallId}/{postId}#reply(gallId = ${gallInfo.gallId}, postId = ${post.postId})}" th:text="'['+${post.cmtNum}+']'"></a>
                     <td class="pointer">
                         <span th:text="${post.writer}">ㅇㅇ</span>
                         <span th:text="'(' + ${post.ip} + ')'" class="ip">(223.38)</span>
@@ -141,8 +141,8 @@
                 </tbody>
             </table>
             <div>
-                <button th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId})}'|">전체글</button>
-                <button class="ns" th:onclick="|location.href='@{/board/{gallId}(gallId = ${gallInfo.gallId}, exception_mode = recommend)}'|">추천글</button>
+                <button th:onclick="|location.href='@{/gallery/{gallId}(gallId = ${gallInfo.gallId})}'|">전체글</button>
+                <button class="ns" th:onclick="|location.href='@{/gallery/{gallId}(gallId = ${gallInfo.gallId}, exception_mode = recommend)}'|">추천글</button>
 
                 <!--				<button class="ns" onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
                 <!--				<button onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
@@ -150,11 +150,11 @@
                 <!--				<button class="ns" onclick="location.href='gallMain.jsp?idx=<%=idx%>'">전체글</button>-->
                 <!--				<button class="ns" onclick="location.href='gallMain.jsp?idx=<%=idx%>&post=reco'">추천글</button>-->
 
-                <button class=right th:onclick="|location.href='@{/board/write/{gallId}(gallId = ${gallInfo.gallId})}'|">글쓰기</button>
+                <button class=right th:onclick="|location.href='@{/gallery/{gallId}/write(gallId = ${gallInfo.gallId})}'|">글쓰기</button>
             </div>
             <div th:each="page : ${#numbers.sequence(1, totalPage)}" class="center">
                 <a th:if="${page != currentPage}"
-                   th:href="@{/board(id = ${gallInfo.gallId}, page = ${page}, list-num = ${totalPage})}"
+                   th:href="@{/gallery(id = ${gallInfo.gallId}, page = ${page}, list-num = ${totalPage})}"
                    th:text="${page}"></a>
                 <strong th:if="${page == currentPage}" th:text="${page}" style="color: red"></strong>
             </div>
