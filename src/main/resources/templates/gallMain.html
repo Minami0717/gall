@@ -134,11 +134,13 @@
 
 				<button class=right th:onclick="|location.href='@{/gallery/{gallId}/write(gallId = ${gallInfo.gallId})}'|">글쓰기</button>
 			</div>
-			<div th:each="page : ${#numbers.sequence(1, totalPage)}" class="center">
-				<a th:if="${page != currentPage}"
-				   th:href="@{/gallery(id = ${gallInfo.gallId}, page = ${page}, list-num = ${totalPage})}"
-				   th:text="${page}"></a>
-				<strong th:if="${page == currentPage}" th:text="${page}" style="color: red"></strong>
+			<div class="center">
+				<th:block th:each="page : ${#numbers.sequence(1, totalPage)}">
+					<a th:if="${page != currentPage}"
+					   th:href="@{/gallery/{gallId}(gallId = ${gallInfo.gallId}, page = ${page}, list-num = ${totalPage})}"
+					   th:text="${page}" style="margin-left: 9px"></a>
+					<strong th:if="${page == currentPage}" th:text="${page}" style="color: red"></strong>
+				</th:block>
 			</div>
 		</section>
 		<aside>

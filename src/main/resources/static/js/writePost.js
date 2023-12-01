@@ -1,4 +1,4 @@
-import generateRandomCode from "./common.js";
+import generateRandomCode, {loadingStart} from "./common.js";
 
 const pw = document.getElementById('pw');
 const img = document.getElementById('img');
@@ -112,9 +112,5 @@ function inputCheck() {
     return true;
 }
 
-function loadingStart() {
-    const loading = document.querySelector('#loading');
-    loading.style.display = 'block';
-}
-
 pw.value = generateRandomCode();
+document.getElementById('loading-text').innerText = 'Image Uploading...'

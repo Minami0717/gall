@@ -30,11 +30,6 @@
 			<button onclick=history.back()>취소</button>
 		</div>
 	</section>
-	<div id="loading">
-		<div class="spinner"></div>
-		<div class="state-viewer-container">
-			<label class="label-font" id="stateLabel">Image Uploading...</label>
-		</div>
-	</div>
+	<th:block th:insert="~{fragments::loading}"></th:block>
 </body>
 </html>

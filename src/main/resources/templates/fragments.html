@@ -4,3 +4,12 @@
     <h2><a class="nanum-gothic text-color" th:href="@{/gallery/{gallId}(gallId = ${gallInfo.gallId})}" th:text="${gallInfo.nm} + ' 갤러리'"></a></h2>
   </div>
 </th:block>
+
+<th:block th:fragment="loading">
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="state-viewer-container">
+      <label class="label-font" id="loading-text"></label>
+    </div>
+  </div>
+</th:block>

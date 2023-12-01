@@ -1,4 +1,4 @@
-import generateRandomCode from "./common.js";
+import generateRandomCode, {loadingEnd, loadingStart} from "./common.js";
 
 const postId = document.getElementById('postId');
 const writer = document.getElementById('writer');
@@ -12,24 +12,30 @@ const decoNum = document.getElementById('deco-num');
 const submit = document.querySelector('.submit');
 
 recoBtn.addEventListener('click', () => {
+    loadingStart();
     upRecoOrDeco('reco').then((res) => {
         if (res.recoNum === -1) {
+            loadingEnd();
             alert('추천은 1일 1회만 가능합니다.')
             return;
         }
 
+        loadingEnd();
         recoNum1.innerHTML = '추천 ' + res.recoNum;
         recoNum2.innerHTML = res.recoNum;
     })
 })
 
 decoBtn.addEventListener('click', () => {
+    loadingStart();
     upRecoOrDeco('deco').then((res) => {
         if (res.recoNum === -1) {
+            loadingEnd();
             alert('비추천은 1일 1회만 가능합니다.')
             return;
         }
 
+        loadingEnd();
         decoNum.innerHTML = res.decoNum;
     })
 })
@@ -184,3 +190,4 @@ $(function() {
 });
 
 cmtPw.value = generateRandomCode();
+document.getElementById('loading-text').innerText = 'Loading...'
