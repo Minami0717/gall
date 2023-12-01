@@ -19,7 +19,9 @@ public class GallService {
     private final GallRepository rep;
 
     public GallInfoDto getGallInfoById(String id) {
-        Gall gall = rep.findById(id).orElseThrow();
+        Gall gall = rep.findById(id).orElse(null);
+        if (gall == null) { return null; }
+
         List<GallManager> managers = gall.getGallManagers();
         String mainManager = null;
         List<String> subManagers = new ArrayList<>();

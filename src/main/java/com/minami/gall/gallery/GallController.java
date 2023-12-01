@@ -1,5 +1,6 @@
 package com.minami.gall.gallery;
 
+import com.minami.gall.gallery.model.GallInfoDto;
 import com.minami.gall.post.PostService;
 import com.minami.gall.post.model.PageDto;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,10 @@ public class GallController {
     public String getGallInfoAndPost(Model model, @PageableDefault(size = 50) Pageable pageable,
                                      @PathVariable String gallId, String mode) {
         PageDto vo = postService.getPostsByGallId(gallId, pageable, mode);
+        GallInfoDto dto = service.getGallInfoById(gallId);
+        if (dto == null) { return "error"; }
 
-        model.addAttribute("gallInfo", service.getGallInfoById(gallId));
+        model.addAttribute("gallInfo", dto);
         model.addAttribute("postList", vo.getPosts());
         model.addAttribute("totalPage", vo.getTotalPage());
         model.addAttribute("currentPage", pageable.getPageNumber() + 1);

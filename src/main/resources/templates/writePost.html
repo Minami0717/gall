@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/writePost.css}">
 	<link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script defer th:src="@{/js/writePost.js}"></script>
+	<script type="module" defer th:src="@{/js/writePost.js}"></script>
 </head>
 <body>
 	<header th:insert="~{header}"></header>
@@ -29,5 +29,11 @@
 			<button onclick=history.back()>취소</button>
 		</div>
 	</section>
+	<div id="loading">
+		<div class="spinner"></div>
+		<div class="state-viewer-container">
+			<label class="label-font" id="stateLabel">Image Uploading...</label>
+		</div>
+	</div>
 </body>
 </html>

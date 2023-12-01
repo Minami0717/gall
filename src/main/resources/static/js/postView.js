@@ -1,4 +1,5 @@
-// import {generateRandomCode} from "common";
+import generateRandomCode from "./common.js";
+
 const postId = document.getElementById('postId');
 const writer = document.getElementById('writer');
 const cmtPw = document.getElementById('cmtPw');
@@ -10,7 +11,6 @@ const recoNum2 = document.getElementById('reco-num2');
 const decoNum = document.getElementById('deco-num');
 const submit = document.querySelector('.submit');
 
-cmtPw.value = generateRandomCode();
 recoBtn.addEventListener('click', () => {
     upRecoOrDeco('reco').then((res) => {
         if (res.recoNum === -1) {
@@ -135,25 +135,6 @@ async function getCmtList() {
     }
 }
 
-// async function getPostView() {
-//     const baseUrl = '/board/view';
-//     const params = {
-//         id: document.getElementById('gallId').value,
-//         no: postId.value
-//     };
-//
-//     const queryString = new URLSearchParams(params).toString();
-//     const reqUrl = `${baseUrl}?${queryString}`;
-//
-//     try {
-//         const response = await fetch(reqUrl);
-//         // const data = await response.json(); // 서버로부터 받은 데이터를 JSON 형태로 변환
-//         // console.log(data); // 변환된 데이터를 출력
-//     } catch (error) {
-//         console.error("Error fetching data:", error);  // 오류 발생 시 메시지 출력
-//     }
-// }
-
 function inputCheck() {
     if (writer.value.trim() === '') {
         alert('닉네임을 입력하세요.');
@@ -177,10 +158,6 @@ function inputCheck() {
     }
     return true;
 }
-
-// let sub = document.getElementsByTagName("#intro_box span");
-// if(sub.value === "없음")
-//     sub.style.color = "#999";
 
 $(function() {
     $(".reTop button").on("click", function() {
@@ -206,10 +183,4 @@ $(function() {
     });
 });
 
-function generateRandomCode() {
-    let str = ''
-    for (let i = 0; i < 4; i++) {
-        str += Math.floor(Math.random() * 10)
-    }
-    return str
-}
+cmtPw.value = generateRandomCode();

@@ -1,4 +1,6 @@
-// import {generateRandomCode} from "./common";
+import generateRandomCode from "./common.js";
+import { apiKey } from "./config/apiKey.js";
+
 const pw = document.getElementById('pw');
 const img = document.getElementById('img');
 const content = document.getElementById('content');
@@ -6,7 +8,6 @@ const submitBtn = document.getElementById('submit-btn');
 const gallId = document.getElementById('gall-id');
 const writer = document.getElementById('writer');
 const title = document.getElementById('title');
-
 img.addEventListener('change', () => {
     const imgs = img.files;
     if (content.innerText.trim() === '') { content.innerHTML = ''; }
@@ -33,12 +34,15 @@ submitBtn.addEventListener('click', () => {
             imgUrls: imgUrls
         }
 
-        writePost(postData).then(() => location.href = '/gallery/' + gallId.value);
+        writePost(postData).then(() => location.href = `/gallery/${gallId.value}`);
     });
 })
 
 async function uploadImgs() {
     const imgUrls = [];
+    if (img.files.length === 0) { return imgUrls; }
+
+    loadingStart();
     const formData = new FormData();
     const imgs = img.files;
 
@@ -65,7 +69,7 @@ async function writePost(postData) {
 
 async function uploadImg(img) {
     try {
-        const res = await fetch("https://api.imgbb.com/1/upload?" + 'key=' + 'e4a9c0950d6ccca805751cda8bbaea91', {
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}&name=${crypto.randomUUID()}`, {
             method: 'POST',
             body: img
         });
@@ -105,12 +109,9 @@ function inputCheck() {
     return true;
 }
 
-function generateRandomCode() {
-    let str = ''
-    for (let i = 0; i < 4; i++) {
-        str += Math.floor(Math.random() * 10)
-    }
-    return str
+function loadingStart() {
+    const loading = document.querySelector('#loading');
+    loading.style.display = 'block';
 }
 
 pw.value = generateRandomCode();

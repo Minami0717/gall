@@ -5,6 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 application.yaml
+apiKeys.js
 
 ### STS ###
 .apt_generated

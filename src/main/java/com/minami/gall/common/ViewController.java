@@ -1,12 +1,12 @@
-//package com.minami.gall;
-//
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//
-//@Controller
-//@RequestMapping
-//public class ViewController {
-//    @GetMapping("header")
-//    public String header() { return "header"; }
-//}
+package com.minami.gall.common;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("error")
+public class ViewController {
+    @GetMapping
+    public String errorPage() { return "error"; }
+}

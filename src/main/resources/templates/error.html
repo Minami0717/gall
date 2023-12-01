@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {margin: 0; padding: 0;}
+        .header {
+            background-color: #29367c;
+            height: 85px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            margin: 0 auto;
+            width: 868px;
+        }
+        .error-box {
+            width: 868px;
+            height: 400px;
+            margin: 200px auto;
+            border: 2px #29367c solid;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .error-box img {
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">minami.com</div>
+    </div>
+    <div class="error-box">
+        <img src="/image/error.png">
+        <div>
+            <p><b>갤러리 접속 에러</b></p><br>
+            <p style="font-size: 14px; line-height: 23px;">
+                알 수 없는 갤러리 페이지입니다.<br>
+                잠시 후 이전페이지로 이동합니다.
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    setTimeout(function () {
+        history.back();
+    }, 2000)
+</script>
+</html>
