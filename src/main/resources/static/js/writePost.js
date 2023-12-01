@@ -1,5 +1,4 @@
 import generateRandomCode from "./common.js";
-import { apiKey } from "./config/apiKey.js";
 
 const pw = document.getElementById('pw');
 const img = document.getElementById('img');
@@ -8,6 +7,10 @@ const submitBtn = document.getElementById('submit-btn');
 const gallId = document.getElementById('gall-id');
 const writer = document.getElementById('writer');
 const title = document.getElementById('title');
+const key = document.getElementById('api-key');
+const keyValue = key.value;
+key.remove();
+
 img.addEventListener('change', () => {
     const imgs = img.files;
     if (content.innerText.trim() === '') { content.innerHTML = ''; }
@@ -69,7 +72,7 @@ async function writePost(postData) {
 
 async function uploadImg(img) {
     try {
-        const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}&name=${crypto.randomUUID()}`, {
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${keyValue}&name=${crypto.randomUUID()}`, {
             method: 'POST',
             body: img
         });

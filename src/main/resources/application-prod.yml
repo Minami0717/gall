@@ -15,6 +15,7 @@ spring:
       host: ${HOST}
       port: ${REDIS_PORT}
 
+api-key: ${API_KEY}
 #file-dir: home/img
 #connect-path: img/**
 #resource-path: file:///app/home/img/

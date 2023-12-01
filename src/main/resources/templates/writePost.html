@@ -25,6 +25,7 @@
 			<div><input type=text placeholder="제목을 입력해 주세요." id="title"></div>
 			<input id="img" type="file" multiple>
 			<div id="content" contenteditable="true"></div>
+			<input type="hidden" id="api-key" th:value="${@environment.getProperty('api-key')}">
 			<button id="submit-btn">등록</button>
 			<button onclick=history.back()>취소</button>
 		</div>
