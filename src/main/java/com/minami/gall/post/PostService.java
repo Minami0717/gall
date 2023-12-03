@@ -2,43 +2,26 @@ package com.minami.gall.post;
 
 import com.minami.gall.common.entity.Gall;
 import com.minami.gall.common.entity.Post;
-import com.minami.gall.common.entity.PostImg;
-import com.minami.gall.common.entity.PostImgID;
 import com.minami.gall.common.enums.TrueFalse;
 import com.minami.gall.common.redis.RedisService;
 import com.minami.gall.common.utils.TimeUtils;
 import com.minami.gall.post.model.*;
-import com.minami.gall.common.repository.PostImgRepository;
 import com.minami.gall.common.repository.PostRepository;
-import com.minami.gall.common.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class PostService {
     private final PostRepository rep;
-    private final PostImgRepository imgRep;
     private final RedisService redis;
 
     public PageDto getPostsByGallId(String id, Pageable pageable, String mode) {
-//        if ("reco".equals(mode)) {
-//
-//        }
         Page<Post> posts = rep.findByGallOrderByPostIdDesc(Gall.builder().gallId(id).build(), pageable);
         return PageDto.builder()
                 .posts(posts.map(p -> PostDto.builder()
@@ -56,7 +39,7 @@ public class PostService {
     }
 
     public void writePost(PostInsParam p) {
-        Post post = rep.save(Post.builder()
+        rep.save(Post.builder()
                 .gall(Gall.builder().gallId(p.getGallId()).build())
                 .title(p.getTitle())
                 .content(p.getContent())
@@ -66,15 +49,6 @@ public class PostService {
                 .deleted(TrueFalse.FALSE)
                 .noticeYn(TrueFalse.FALSE)
                 .build());
-
-        if (p.getImgUrls().size() != 0) {
-            imgRep.saveAll(p.getImgUrls().stream().map(img -> PostImg.builder()
-                    .postImgID(PostImgID.builder()
-                            .post(post)
-                            .img(img)
-                            .build())
-                    .build()).toList());
-        }
     }
 
     @Transactional
@@ -92,7 +66,6 @@ public class PostService {
                 .hits(p.getHits())
                 .recoNum(p.getRecoNum())
                 .decoNum(p.getDecoNum())
-                .imgs(p.getImgs().stream().map(i -> i.getPostImgID().getImg()).toList())
                 .cmts(p.getCmts())
                 .build();
     }

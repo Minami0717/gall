@@ -73,9 +73,6 @@ public class Post extends BaseEntity {
     @ToString.Exclude
     private List<Cmt> cmts;
 
-    @OneToMany(mappedBy = "postImgID.post")
-    private List<PostImg> imgs;
-
     public void upHits() {
         hits++;
     }

@@ -13,7 +13,7 @@ key.remove();
 
 img.addEventListener('change', () => {
     const imgs = img.files;
-    if (content.innerText.trim() === '') { content.innerHTML = ''; }
+    content.innerHTML = '';
 
     for (let i = 0; i < imgs.length; i++) {
         content.innerHTML += `
@@ -28,18 +28,25 @@ submitBtn.addEventListener('click', () => {
     if (!inputCheck()) { return; }
 
     uploadImgs().then(imgUrls => {
-        const postData = {
-            gallId: gallId.value,
-            title: title.value.trim(),
-            content: content.innerText.trim(),
-            writer: writer.value.trim(),
-            pw: pw.value.trim(),
-            imgUrls: imgUrls
-        }
-
-        writePost(postData).then(() => location.href = `/gallery/${gallId.value}`);
+        writePost(createPostData(imgUrls)).then(() => location.href = `/gallery/${gallId.value}`);
     });
 })
+
+function createPostData(imgUrls) {
+    const contentClone = content.cloneNode(true);
+    const imgs = contentClone.querySelectorAll('img');
+    for (let i = 0; i < imgs.length; i++) {
+        imgs[i].src = imgUrls[i];
+    }
+
+    return {
+        gallId: gallId.value,
+        title: title.value.trim(),
+        content: contentClone.innerHTML.trim(),
+        writer: writer.value.trim(),
+        pw: pw.value.trim()
+    };
+}
 
 async function uploadImgs() {
     const imgUrls = [];

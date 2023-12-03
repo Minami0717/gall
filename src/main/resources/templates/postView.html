@@ -30,10 +30,10 @@
                     <a href=#reply th:text="'댓글 ' + ${postDetail.cmts.size()}" class="cmtNum"></a>
                 </p>
             </div>
-            <div id="img_box" th:each="img : ${postDetail.imgs}">
-                <img th:src="@{${img}}">
-            </div>
-            <div id=con th:text="${postDetail.content}"></div>
+<!--            <div id="img_box" th:each="img : ${postDetail.imgs}">-->
+<!--                <img th:src="@{${img}}">-->
+<!--            </div>-->
+            <div id=con th:utext="${postDetail.content}" th></div>
             <div class="center">
                 <div id=rec>
                     <span id="reco-num2" th:text="${postDetail.recoNum}"></span>

@@ -16,18 +16,25 @@
 		<div th:replace="~{fragments::gallName}"></div>
 		<div id=outside>
 			<div>
-				<input type="hidden" id="gallId" th:value="${gallInfo.gallId}">
-				<input type="hidden" id="postId" th:value="${post.postId}">
+				<input type="hidden" id="gall-id" th:value="${gallInfo.gallId}">
+				<input type="hidden" id="post-id" th:value="${post.postId}">
 				<input type=text readonly id="writer" th:value="${post.writer}">
-				<input type=password readonly id="postPw" th:value="${post.pw}">
+				<input type=password readonly id="pw" th:value="${post.pw}">
 				<!--					<input type=hidden value name=nick>-->
 				<!--					<input type=hidden value name=pw>-->
 			</div>
 			<div><input type=text id="title" th:value="${post.title}"></div>
-			<input type="file" id="imgList" multiple><br><br>
-			<textarea id="content" th:text="${post.content}" ></textarea><br>
-			<button id="submit">등록</button>
-			<button onclick="history.go(-2)">취소</button>
+			<div class="write-info">
+				<p>※ 쉬운 비밀번호를 입력하면 타인의 수정, 삭제가 쉽습니다.</p>
+				<p>※ 음란물, 차별, 비하, 혐오 및 초상권, 저작권 침해 게시물은 민, 형사상의 책임을 질 수 있습니다. [저작권법 안내] [게시물 활용 안내]</p>
+				<p>※ 이미지 수정은 추후 구현 예정</p>
+			</div>
+<!--			<input type="file" id="img" multiple>-->
+			<div id="content" contenteditable="true" th:utext="${post.content}"></div>
+			<div class="btn-box">
+				<button onclick=history.go(-2)>취소</button>
+				<button id="submit-btn">등록</button>
+			</div>
 		</div>
 	</section>
 </body>

@@ -19,6 +19,5 @@ public class PostDetailDto {
     private int hits;
     private int recoNum;
     private int decoNum;
-    private List<String> imgs;
     private List<Cmt> cmts;
 }

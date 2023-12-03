@@ -1,19 +1,19 @@
-const submit = document.getElementById('submit');
+const submitBtn = document.getElementById('submit-btn');
 const title = document.getElementById('title');
 const content = document.getElementById('content');
-const postId = document.getElementById('postId');
-const gallId = document.getElementById('gallId');
+const postId = document.getElementById('post-id');
+const gallId = document.getElementById('gall-id');
 
-submit.addEventListener('click', () => {
+submitBtn.addEventListener('click', () => {
     if (!inputCheck()) { return; }
 
     const postData = {
         postId: postId.value,
         title: title.value.trim(),
-        content: content.value.trim()
+        content: content.innerHTML.trim()
     }
 
-    updPost(postData).then(() => location.href = '/gallery/' + gallId.value);
+    updPost(postData).then(() => location.href = `/gallery/${gallId.value}`);
 });
 
 async function updPost(postData) {
@@ -36,7 +36,7 @@ function inputCheck() {
         title.focus();
         return false;
     }
-    if (content.value.trim() === '') {
+    if (content.innerHTML.trim() === '') {
         alert('내용을 입력하세요.');
         content.focus();
         return false;

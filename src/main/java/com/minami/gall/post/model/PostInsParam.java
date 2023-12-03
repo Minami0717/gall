@@ -12,5 +12,4 @@ public class PostInsParam {
     private String writer;
     private String pw;
     private String ip;
-    private List<String> imgUrls;
 }
