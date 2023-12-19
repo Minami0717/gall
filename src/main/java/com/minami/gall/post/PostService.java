@@ -102,7 +102,12 @@ public class PostService {
     @Transactional
     public PostRecoDto upRecoOrDeco(Long postId, String mode, String ip) {
         String key = String.format("%d:%s:%s", postId, ip, mode.toUpperCase());
-        if (redis.getData(key) != null) { return PostRecoDto.builder().recoNum(-1).build(); }
+        try {
+            if (redis.getData(key) != null) { return PostRecoDto.builder().recoNum(-1).build(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
         Post p = getPostById(postId);
         p.upRecoOrDeco(mode);

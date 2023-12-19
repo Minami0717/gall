@@ -35,6 +35,9 @@ public class Gall extends BaseEntity {
     @Column(length = 100)
     private String intro;
 
+    @Column(nullable = false, columnDefinition = "tinyint unsigned")
+    private int standardNum;
+
     @OneToMany(mappedBy = "gallManagerID.gall")
     private List<GallManager> gallManagers;
 }

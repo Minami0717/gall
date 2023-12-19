@@ -14,6 +14,11 @@ const submit = document.querySelector('.submit');
 recoBtn.addEventListener('click', () => {
     loadingStart();
     upRecoOrDeco('reco').then((res) => {
+        if (res === null) {
+            loadingEnd();
+            alert('서버 오류 발생')
+            return;
+        }
         if (res.recoNum === -1) {
             loadingEnd();
             alert('추천은 1일 1회만 가능합니다.')
@@ -29,6 +34,11 @@ recoBtn.addEventListener('click', () => {
 decoBtn.addEventListener('click', () => {
     loadingStart();
     upRecoOrDeco('deco').then((res) => {
+        if (res === null) {
+            loadingEnd();
+            alert('서버 오류 발생')
+            return;
+        }
         if (res.recoNum === -1) {
             loadingEnd();
             alert('비추천은 1일 1회만 가능합니다.')
@@ -74,6 +84,7 @@ async function upRecoOrDeco(mode) {
         return await res.json();
     } catch (error) {
         console.error("Error fetching data:", error);  // 오류 발생 시 메시지 출력
+        return null;
     }
 }
 
@@ -190,4 +201,3 @@ $(function() {
 });
 
 cmtPw.value = generateRandomCode();
-document.getElementById('loading-text').innerText = 'Loading...'

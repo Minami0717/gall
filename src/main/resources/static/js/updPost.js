@@ -1,3 +1,5 @@
+import {loadingStart} from "./common.js";
+
 const submitBtn = document.getElementById('submit-btn');
 const title = document.getElementById('title');
 const content = document.getElementById('content');
@@ -7,6 +9,7 @@ const gallId = document.getElementById('gall-id');
 submitBtn.addEventListener('click', () => {
     if (!inputCheck()) { return; }
 
+    loadingStart();
     const postData = {
         postId: postId.value,
         title: title.value.trim(),

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/writePost.css}">
 	<link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<script defer th:src="@{/js/updPost.js}"></script>
+	<script type="module" defer th:src="@{/js/updPost.js}"></script>
 </head>
 <body>
 	<header th:insert="~{header}"></header>
@@ -37,5 +37,6 @@
 			</div>
 		</div>
 	</section>
+	<th:block th:insert="~{fragments::loading}"></th:block>
 </body>
 </html>

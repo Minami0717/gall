@@ -1,4 +1,4 @@
-import generateRandomCode, {loadingStart} from "./common.js";
+import generateRandomCode, {generateRandomFileName, loadingStart} from "./common.js";
 
 const pw = document.getElementById('pw');
 const img = document.getElementById('img');
@@ -8,12 +8,14 @@ const gallId = document.getElementById('gall-id');
 const writer = document.getElementById('writer');
 const title = document.getElementById('title');
 const key = document.getElementById('api-key');
+const loadingText = document.getElementById('loading-text');
 const keyValue = key.value;
 key.remove();
 
 img.addEventListener('change', () => {
     const imgs = img.files;
     content.innerHTML = '';
+    loadingText.innerText = 'Image Uploading...'
 
     for (let i = 0; i < imgs.length; i++) {
         content.innerHTML += `
@@ -27,6 +29,7 @@ img.addEventListener('change', () => {
 submitBtn.addEventListener('click', () => {
     if (!inputCheck()) { return; }
 
+    loadingStart();
     uploadImgs().then(imgUrls => {
         writePost(createPostData(imgUrls)).then(() => location.href = `/gallery/${gallId.value}`);
     });
@@ -52,7 +55,6 @@ async function uploadImgs() {
     const imgUrls = [];
     if (img.files.length === 0) { return imgUrls; }
 
-    loadingStart();
     const formData = new FormData();
     const imgs = img.files;
 
@@ -79,7 +81,7 @@ async function writePost(postData) {
 
 async function uploadImg(img) {
     try {
-        const res = await fetch(`https://api.imgbb.com/1/upload?key=${keyValue}&name=${crypto.randomUUID()}`, {
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${keyValue}&name=${generateRandomFileName()}`, {
             method: 'POST',
             body: img
         });
@@ -120,4 +122,3 @@ function inputCheck() {
 }
 
 pw.value = generateRandomCode();
-document.getElementById('loading-text').innerText = 'Image Uploading...'

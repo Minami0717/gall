@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://${HOST}:${PORT}/${DATABASE_NAME}
+    url: jdbc:mariadb://${MARIA_HOST}:${MARIA_PORT}/${DATABASE_NAME}
     username: ${USERNAME}
     password: ${PASSWORD}
   jpa:
@@ -12,10 +12,15 @@ spring:
         format_sql: true
   data:
     redis:
-      host: ${HOST}
+      host: ${REDIS_HOST}
       port: ${REDIS_PORT}
+      password: ${PASSWORD}
 
 api-key: ${API_KEY}
+
+server:
+  port: 5000
+
 #file-dir: home/img
 #connect-path: img/**
 #resource-path: file:///app/home/img/

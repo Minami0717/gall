@@ -7,7 +7,7 @@
   <h1><a th:href="@{/}">minami.com</a></h1>
   <div id=search>
     <form action="search.jsp" autocomplete="off">
-      <input type=text placeholder="게시판 & 통합검색" name="word" value>
+      <input type=text placeholder="갤러리 & 통합검색" name="word" value>
       <input type=hidden value name=save>
       <button><img th:src="@{/image/search2.png}"></button>
     </form>
@@ -32,11 +32,10 @@
 </div>
 <nav>
   <ul>
-    <li><a href=#>메인</a>
-    <li><a href=minor.jsp id=a_minor>마이너</a>
-    <li><a href=#>미니</a>
-    <li>|
-    <li><a href=#>블로그</a>
+    <li><a href=#>갤러리</a>
+    <li><a href=# id=a_minor>마이너갤</a>
+    <li><a href=# id="mini">미니갤</a>
+    <li><a href=#>갤로그</a>
     <li><a href=#>뉴스</a>
     <li><a href=#>게임</a>
     <li><a href=#>위키</a>
