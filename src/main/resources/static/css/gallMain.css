@@ -47,8 +47,8 @@ td[align=left] a:last-of-type {color: #999;}
     display: flex;
     justify-content: start;
 }
-#intro_box > div {
-    margin-right: 20px;
+.img-box {
+    margin-right: 10px;
 }
 #intro_box img {
     width: 156px;
@@ -67,10 +67,10 @@ td[align=left] a:last-of-type {color: #999;}
     visibility: hidden;
     content: "";
 }
+
 #intro_box strong {
+    display: inline-block;
     width: 73px;
-    display: block;
-    float: left;
 }
 #intro_box strong:before {
     content: "";
@@ -111,11 +111,28 @@ td[align=left] a:last-of-type {color: #999;}
 /*}*/
 
 .inline {display: inline-block;}
-.top_box {border-top: 2px solid #3b4890; border-bottom: 1px solid gainsboro; padding: 20px; font-size: 13px;}
+.top_box {
+    border-top: 2px solid #3b4890;
+    border-bottom: 1px solid gainsboro;
+    padding: 20px 2px;
+    font-size: 12px;
+}
 
 .absence {
     color: #999;
 }
 .width204 {
     width: 204px;
+}
+
+.sub-manager {
+    display: flex;
+}
+.sub-manager strong {
+    margin-right: 4px;
+}
+
+.intro {
+    line-height: 20px;
+    margin-right: 10px;
 }
