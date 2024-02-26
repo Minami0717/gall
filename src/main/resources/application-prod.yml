@@ -20,7 +20,3 @@ api-key: ${API_KEY}
 
 server:
   port: 5000
-
-#file-dir: home/img
-#connect-path: img/**
-#resource-path: file:///app/home/img/
